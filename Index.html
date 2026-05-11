@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Al Bayan Learning Center — Where Faith Meets Excellence</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.lordicon.com/lordicon.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --t:#175d52;--t2:#1e7a6d;--t3:#2a9485;
+  --a:#7ebdb4;--al:#e4f4f2;
+  --n:#0c0e1a;--n2:#111527;--n3:#0d1525;
+  --paper:#f5fafa;--white:#fff;
+  --ash:#4a5568;--fog:#718096;
+  --gold:#c8973a;
+  --ease:cubic-bezier(.25,.46,.45,.94);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Outfit',sans-serif;background:var(--n);color:#fff;overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+#cur{position:fixed;width:10px;height:10px;background:var(--a);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);box-shadow:0 0 14px rgba(126,189,180,.7)}
+#ring{position:fixed;width:38px;height:38px;border:1.5px solid rgba(126,189,180,.35);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:left .1s,top .1s}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--n);z-index:99997;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transition:opacity .9s}
+#loader.done{opacity:0;pointer-events:none}
+.l-ar{font-family:'Cormorant Garamond',serif;font-size:4.5rem;color:var(--a);animation:float 2s ease-in-out infinite}
+@keyframes float{0%,100%{opacity:1;transform:translateY(0)}50%{opacity:.5;transform:translateY(-10px)}}
+.l-bar{width:200px;height:2px;background:rgba(255,255,255,.08);border-radius:1px;overflow:hidden}
+.l-fill{height:100%;width:0;background:linear-gradient(90deg,var(--t),var(--a));animation:lfill 2.2s var(--ease) forwards}
+@keyframes lfill{to{width:100%}}
+.l-txt{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--fog)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:9000;padding:0 2.5rem;height:74px;display:flex;align-items:center;justify-content:space-between;transition:all .4s var(--ease)}
+nav.sc{background:rgba(7,11,20,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(126,189,180,.1);height:62px}
+.nlogo{display:flex;align-items:center;text-decoration:none;cursor:none}
+.nlogo img{height:44px;width:auto;border-radius:8px;padding:5px 10px;background:rgba(255,255,255,.94);display:block}
+.nlinks{display:flex;list-style:none}
+.nlinks>li>a{display:block;padding:8px 12px;font-size:13px;color:rgba(255,255,255,.7);text-decoration:none;transition:color .3s;cursor:none}
+.nlinks>li>a:hover,.nlinks>li>a.act{color:var(--a)}
+.dropdown{position:relative}
+.drop-menu{position:absolute;top:calc(100% + 8px);left:0;background:rgba(7,11,20,.97);backdrop-filter:blur(20px);border:1px solid rgba(126,189,180,.12);border-radius:10px;padding:.5rem 0;min-width:200px;display:none;z-index:100;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.dropdown:hover .drop-menu{display:block}
+.drop-menu a{padding:9px 18px;font-size:13px;display:block;color:rgba(255,255,255,.6);text-decoration:none;transition:all .2s;cursor:none}
+.drop-menu a:hover{color:var(--a);padding-left:24px}
+.nbtns{display:flex;gap:8px;align-items:center}
+.nb{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;transition:all .3s;cursor:none;font-family:'Outfit',sans-serif;border:1.5px solid transparent}
+.nb-g{border-color:rgba(255,255,255,.18);color:#fff;background:rgba(255,255,255,.07)}
+.nb-g:hover{background:rgba(255,255,255,.14)}
+.nb-s{background:linear-gradient(135deg,var(--t),var(--t3));color:#fff;border-color:var(--t)}
+.nb-s:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:none;background:none;border:none;padding:8px}
+.ham span{width:22px;height:2px;background:#fff;border-radius:1px;transition:all .3s;display:block}
+.mob-menu{display:none;position:fixed;inset:0;top:62px;background:rgba(7,11,20,.98);z-index:8999;padding:2rem;overflow-y:auto}
+.mob-menu.open{display:block}
+.mob-menu a{display:block;font-size:1.1rem;color:rgba(255,255,255,.72);text-decoration:none;padding:.875rem 0;border-bottom:1px solid rgba(255,255,255,.06);cursor:none}
+.mob-menu a:hover{color:var(--a)}
+
+/* NOISE */
+.noise{position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* PAGE SYSTEM */
+.page{display:none;animation:pgfade .45s var(--ease)}
+.page.active{display:block}
+@keyframes pgfade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.rvl{opacity:0;transform:translateX(-36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rvr{opacity:0;transform:translateX(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in,.rvl.in,.rvr.in{opacity:1;transform:none}
+
+/* HELPERS */
+.sec{max-width:1280px;margin:0 auto}
+.eye{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--t);margin-bottom:.875rem;display:flex;align-items:center;gap:10px}
+.eye::after{content:'';width:32px;height:1px;background:rgba(23,93,82,.25)}
+.eye-w{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--a);margin-bottom:.875rem;display:flex;align-items:center;gap:10px}
+.eye-w::after{content:'';width:32px;height:1px;background:rgba(126,189,180,.3)}
+.eyec{justify-content:center}.eyec::before{content:'';width:32px;height:1px;background:rgba(23,93,82,.2)}
+.eyewc{justify-content:center}.eyewc::before{content:'';width:32px;height:1px;background:rgba(126,189,180,.25)}
+.title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.2vw,3.2rem);font-weight:400;color:#0c0e1a;line-height:1.1;margin-bottom:1rem}
+.title em{font-style:italic;color:var(--t)}
+.title-w{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.2vw,3.2rem);font-weight:400;color:#fff;line-height:1.1;margin-bottom:1rem}
+.title-w em{font-style:italic;color:var(--a)}
+.body-t{font-size:15px;color:var(--ash);line-height:1.85;margin-bottom:1rem;font-weight:300}
+.body-w{font-size:15px;color:rgba(255,255,255,.55);line-height:1.85;font-weight:300}
+.btnt{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--t);color:#fff;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:.3px;transition:all .3s;cursor:none;border:none}
+.btnt:hover{background:var(--t2);transform:translateY(-2px)}
+.btna{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:transparent;color:var(--a);border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;transition:all .3s;cursor:none;border:1.5px solid rgba(126,189,180,.3)}
+.btna:hover{background:rgba(126,189,180,.1);border-color:var(--a)}
+.link-g{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.42);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:2px;transition:all .3s;cursor:none}
+.link-g:hover{color:var(--a);border-color:var(--a)}
+lord-icon{display:inline-flex!important;align-items:center;justify-content:center;flex-shrink:0}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:center;overflow:hidden;background:linear-gradient(135deg,#030b14 0%,#061a14 30%,#040d1a 60%,#030b14 100%)}
+#ic{position:absolute;inset:0;z-index:1;pointer-events:none}
+.slides{position:absolute;inset:0;z-index:2}
+.sl{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease;background-color:#051a12}
+.sl.on{opacity:1;animation:kb 8s ease-out forwards}
+@keyframes kb{from{transform:scale(1.07)}to{transform:scale(1.0)}}
+.ov1{position:absolute;inset:0;z-index:3;background:rgba(4,8,18,.35)}
+.ov2{position:absolute;inset:0;z-index:4;background:radial-gradient(ellipse 120% 100% at 50% 50%,transparent 30%,rgba(4,8,18,.75) 100%)}
+.ov3{position:absolute;inset:0;z-index:5;background:linear-gradient(to right,rgba(3,8,16,.94) 0%,rgba(3,8,16,.72) 35%,rgba(3,8,16,.18) 58%,transparent 78%),linear-gradient(to top,rgba(3,8,16,.88) 0%,transparent 28%)}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);z-index:3;pointer-events:none}
+.ob1{width:480px;height:480px;background:radial-gradient(circle,rgba(23,93,82,.3),transparent 70%);top:-15%;left:-8%;animation:of 12s ease-in-out infinite}
+.ob2{width:320px;height:320px;background:radial-gradient(circle,rgba(126,189,180,.16),transparent 70%);bottom:-10%;right:8%;animation:of 16s ease-in-out infinite reverse}
+@keyframes of{0%,100%{transform:translate(0,0)}50%{transform:translate(22px,-18px)}}
+#hc{position:absolute;inset:0;z-index:6;pointer-events:none}
+.hcont{position:relative;z-index:10;padding:0 5rem;max-width:740px}
+.hey{display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;opacity:0;animation:fu .8s var(--ease) .5s forwards}
+.hel{width:32px;height:1px;background:var(--a)}
+.hey span{font-size:11px;letter-spacing:3.5px;text-transform:uppercase;color:var(--a);font-weight:500}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,5.8vw,6.5rem);line-height:1;font-weight:300;margin-bottom:1.5rem}
+.hero h1 em{font-style:italic;color:var(--a)}
+.hl{overflow:hidden;display:block}
+.hl span{display:block;opacity:0;transform:translateY(100%);animation:lu 1s var(--ease) forwards}
+.hl:nth-child(1) span{animation-delay:.6s}
+.hl:nth-child(2) span{animation-delay:.8s}
+.hl:nth-child(3) span{animation-delay:1s}
+@keyframes lu{to{opacity:1;transform:none}}
+.hsub{font-size:15.5px;color:rgba(255,255,255,.6);line-height:1.8;max-width:480px;margin-bottom:2.25rem;font-weight:300;opacity:0;animation:fu .8s var(--ease) 1.2s forwards}
+.hbtns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fu .8s var(--ease) 1.4s forwards;margin-bottom:2rem}
+.hb{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:all .35s var(--spring);cursor:none;border:1.5px solid transparent}
+.hb-p{background:linear-gradient(135deg,var(--t),var(--t3));color:#fff;border-color:var(--t)}
+.hb-p:hover{transform:translateY(-3px);box-shadow:0 18px 50px rgba(23,93,82,.45)}
+.hb-g{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.22);backdrop-filter:blur(8px)}
+.hb-g:hover{background:rgba(255,255,255,.16)}
+.hgps{opacity:0;animation:fu .8s var(--ease) 1.6s forwards;display:inline-flex;align-items:center;gap:10px;padding:9px 16px;background:rgba(200,151,58,.1);border:1px solid rgba(200,151,58,.28);border-radius:8px;font-size:12.5px;color:rgba(255,255,255,.68)}
+.hgps-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:gpdot 2s infinite;flex-shrink:0}
+@keyframes gpdot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(200,151,58,.4)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(200,151,58,0)}}
+.hscr{position:absolute;bottom:2.5rem;left:5rem;z-index:10;display:flex;align-items:center;gap:10px;opacity:0;animation:fi .8s 2s forwards}
+.hscr span{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.scrl{width:36px;height:1px;background:rgba(255,255,255,.15);overflow:hidden;position:relative}
+.scrl::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--a);animation:sa 2s ease-in-out infinite}
+@keyframes sa{0%{left:-100%}100%{left:100%}}
+.hst{position:absolute;bottom:2.5rem;right:5rem;z-index:10;display:flex;gap:2.5rem;opacity:0;animation:fi .8s 1.8s forwards}
+.stn{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--a);display:block;line-height:1}
+.stl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);display:block;margin-top:4px}
+#sdots{position:absolute;right:2rem;top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:8px}
+.sd{width:5px;height:5px;border-radius:2px;background:rgba(255,255,255,.2);cursor:none;transition:all .4s}
+.sd.on{background:var(--a);height:18px;box-shadow:0 0 8px rgba(126,189,180,.5)}
+#sp{position:absolute;bottom:0;left:0;right:0;z-index:10;height:2px;background:linear-gradient(90deg,var(--t),var(--a));transform-origin:left;animation:sp 6s linear infinite}
+@keyframes sp{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes fu{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+
+/* MARQUEE */
+.mq{background:linear-gradient(135deg,var(--t),var(--t2));padding:12px 0;overflow:hidden}
+.mtr{display:flex;white-space:nowrap;animation:mq 32s linear infinite}
+.mi{display:inline-flex;align-items:center;gap:14px;padding:0 2rem;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.85)}
+.md{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4);flex-shrink:0}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ACCRED BAR */
+.accred{background:#fff;border-top:1px solid rgba(23,93,82,.08);border-bottom:1px solid rgba(23,93,82,.08);padding:1.5rem 2rem}
+.ac-in{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap}
+.ac-item{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;color:var(--fog)}
+.ac-ico{width:38px;height:38px;border-radius:9px;background:var(--al);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* PROGRAM CARDS */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;overflow:hidden;cursor:none;text-decoration:none;display:block;color:inherit;transition:all .4s var(--ease);position:relative}
+.pc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--t),var(--a));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.pc:hover{transform:translateY(-5px);background:rgba(255,255,255,.065);border-color:rgba(126,189,180,.2);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.pc:hover::after{transform:scaleX(1)}
+.pc-img{height:180px;overflow:hidden}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.pc:hover .pc-img img{transform:scale(1.06)}
+.pc-body{padding:1.5rem}
+.pc-tag{display:inline-block;background:rgba(23,93,82,.45);border:1px solid rgba(23,93,82,.4);color:rgba(255,255,255,.6);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:.75rem}
+.pc h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:#fff;margin-bottom:.5rem}
+.pc p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.65;margin-bottom:1rem}
+.pc-link{font-size:11px;color:var(--a);letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
+
+/* PILLARS */
+.pbento{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pil{border-radius:18px;overflow:hidden;position:relative;transition:all .5s var(--ease)}
+.pil:nth-child(2){grid-row:1/3}
+.pil:nth-child(4){grid-column:1/3}
+.pbg{position:absolute;inset:0;transition:transform .8s var(--ease)}
+.pil:hover .pbg{transform:scale(1.03)}
+.ptl{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(126,189,180,.2),transparent);z-index:2}
+.pbl{position:absolute;bottom:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--t),var(--a));transition:width .5s;z-index:2}
+.pil:hover .pbl{width:100%}
+.pglow{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(23,93,82,.45),transparent);top:-80px;right:-80px;filter:blur(65px);opacity:0;transition:opacity .5s;z-index:1}
+.pil:hover .pglow{opacity:1}
+.pman{position:absolute;top:-30px;right:-30px;width:200px;height:200px;opacity:.07;transition:opacity .5s,transform .7s var(--ease);z-index:1;pointer-events:none}
+.pil:hover .pman{opacity:.16;transform:rotate(12deg) scale(1.06)}
+.pno{position:absolute;top:1.5rem;left:1.75rem;z-index:3;font-family:'Cormorant Garamond',serif;font-size:.8rem;font-weight:600;color:var(--a);letter-spacing:3px}
+.piw{position:absolute;top:1.5rem;right:1.75rem;z-index:3;width:52px;height:52px;display:flex;align-items:center;justify-content:center}
+.pr{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(126,189,180,.2);animation:sr 8s linear infinite}
+.pr2{position:absolute;inset:5px;border-radius:50%;border:1px dashed rgba(126,189,180,.1);animation:sr 12s linear infinite reverse}
+@keyframes sr{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.pbod{position:relative;z-index:3;padding:2.25rem 1.75rem;min-height:240px;display:flex;flex-direction:column;justify-content:flex-end}
+.pil:nth-child(2) .pbod{min-height:540px}
+.pil:nth-child(4) .pbod{min-height:190px;flex-direction:row;align-items:center;justify-content:space-between;gap:2rem}
+.pbod h3{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);font-weight:600;color:#fff;margin-bottom:.6rem;transition:color .3s}
+.pil:hover .pbod h3{color:var(--a)}
+.pbod p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;max-width:320px;margin-bottom:1.25rem}
+.plink{font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.3);border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:2px;text-decoration:none;transition:all .4s;cursor:none;display:inline-block}
+.pil:hover .plink{color:var(--a);border-color:var(--a)}
+.pbuls{margin-top:1.25rem;display:flex;flex-direction:column;gap:.7rem}
+.pbul{display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,.4);transition:color .3s}
+.pil:hover .pbul{color:rgba(255,255,255,.65)}
+.pdot{width:4px;height:4px;border-radius:50%;background:var(--a);flex-shrink:0}
+.p4s{flex-shrink:0;text-align:center;padding:1.5rem 2.25rem;background:rgba(126,189,180,.07);border:1px solid rgba(126,189,180,.18);border-radius:12px;position:relative;z-index:3}
+.p4n{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:700;color:var(--a);line-height:1;display:block}
+.p4l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);display:block;margin-top:4px}
+
+/* STATS */
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden}
+.sblk{padding:3rem 2rem;text-align:center;border-right:1px solid rgba(255,255,255,.06);transition:background .4s;display:flex;flex-direction:column;align-items:center}
+.sblk:last-child{border-right:none}
+.sblk:hover{background:rgba(255,255,255,.025)}
+.sblk lord-icon{margin-bottom:.875rem}
+.sc2{font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:700;color:#fff;line-height:1;display:block}
+.ssuf{color:var(--a)}
+.sdesc{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.32);display:block;margin-top:8px}
+.ssub{font-size:13px;color:rgba(255,255,255,.4);margin-top:4px;display:block}
+
+/* GALLERY */
+.gallg{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:220px 220px;gap:10px}
+.gi{border-radius:12px;overflow:hidden;cursor:none;position:relative}
+.gi:nth-child(1){grid-column:1/3}
+.gi:nth-child(5){grid-column:2/4}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.gi:hover img{transform:scale(1.06)}
+.gi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 55%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:1.25rem}
+.gi:hover .gi-ov{opacity:1}
+.gi-lbl{color:#fff;font-size:13px;font-weight:500}
+
+/* TESTIMONIALS */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tc{background:#fff;border-radius:16px;padding:2.25rem;border:1px solid rgba(0,0,0,.05);box-shadow:0 4px 24px rgba(0,0,0,.05);transition:all .4s;position:relative;overflow:hidden}
+.tc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--t),var(--a))}
+.tc:hover{transform:translateY(-5px);box-shadow:0 18px 50px rgba(0,0,0,.1)}
+.stars{display:flex;gap:3px;margin-bottom:1rem}
+.star{width:13px;height:13px;background:var(--a);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.tc blockquote{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--n);line-height:1.7;margin-bottom:1.75rem}
+.tau{display:flex;align-items:center;gap:10px;padding-top:1.25rem;border-top:1px solid rgba(0,0,0,.06)}
+.tav{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--t),var(--a));color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.tmeta h5{font-size:13.5px;font-weight:600;color:var(--n)}
+.tmeta span{font-size:12px;color:var(--fog)}
+
+/* NEWS */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ncard{background:var(--n2);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.07);transition:all .4s;cursor:none;text-decoration:none;color:inherit;display:block}
+.ncard:hover{transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.35);border-color:rgba(126,189,180,.2)}
+.ncard-img{height:200px;overflow:hidden;position:relative}
+.ncard-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.ncard:hover .ncard-img img{transform:scale(1.06)}
+.nbadge{position:absolute;top:12px;left:12px;background:var(--t);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.8px;text-transform:uppercase}
+.ncard-body{padding:1.5rem}
+.ndate{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:.6rem}
+.ncard h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:#fff;margin-bottom:.5rem;line-height:1.3}
+.ncard p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6}
+.ncard-link{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--a);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:1rem}
+
+/* FEE CARDS */
+.fcards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
+.fc{background:rgba(255,255,255,.04);border:1px solid rgba(126,189,180,.1);border-radius:18px;overflow:hidden;transition:all .4s;position:relative}
+.fc:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.3);border-color:rgba(126,189,180,.22)}
+.fcf{background:linear-gradient(160deg,rgba(23,93,82,.22),rgba(14,28,52,.88));border-color:rgba(126,189,180,.28);transform:scale(1.03)}
+.fcf:hover{transform:scale(1.04) translateY(-4px)}
+.fstr{height:3px;background:linear-gradient(90deg,var(--t),var(--a))}
+.fbod{padding:1.75rem}
+.fcat{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--a);font-weight:600;margin-bottom:.65rem}
+.fbod h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:#fff;font-weight:600;margin-bottom:.3rem}
+.fbod>p{font-size:13px;color:rgba(255,255,255,.38);margin-bottom:1.75rem;line-height:1.5}
+.frows{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.75rem}
+.fr{display:flex;justify-content:space-between;align-items:center;padding:.75rem .9rem;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.05)}
+.frh{background:rgba(126,189,180,.1);border-color:rgba(126,189,180,.2)}
+.fr span:first-child{font-size:13px;color:rgba(255,255,255,.55)}
+.fr span:last-child{font-size:14.5px;font-weight:600;color:#fff;font-family:'Cormorant Garamond',serif}
+.frh span:last-child{color:var(--a)}
+.fbdg{background:var(--t);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:1px;display:inline-block;margin-bottom:.75rem}
+.btnf{display:block;text-align:center;padding:11px;background:rgba(23,93,82,.38);color:var(--a);border:1px solid rgba(126,189,180,.2);border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;transition:all .3s;cursor:none}
+.btnf:hover,.btnfs:hover{background:var(--t);color:#fff;border-color:var(--t)}
+.btnfs{display:block;text-align:center;padding:11px;background:linear-gradient(135deg,var(--t),var(--t3));color:#fff;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;transition:all .3s;cursor:none}
+
+/* ACCORDION */
+.dcard{background:#fff;border-radius:16px;border:1px solid rgba(23,93,82,.12);overflow:hidden;transition:all .4s;margin-bottom:14px}
+.dcard:hover{border-color:rgba(23,93,82,.25);box-shadow:0 12px 40px rgba(0,0,0,.07)}
+.dcard-h{padding:1.5rem 1.75rem;display:flex;align-items:center;justify-content:space-between;cursor:none}
+.dcard-l{display:flex;align-items:center;gap:1.2rem}
+.dcard-ico{width:46px;height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dcard-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--a);font-weight:600;margin-bottom:.2rem}
+.dcard h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--n)}
+.dcard-tog{width:32px;height:32px;border-radius:50%;border:1px solid rgba(23,93,82,.18);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--t);transition:transform .4s;flex-shrink:0;background:none;cursor:none;font-weight:300;line-height:1}
+.dcard.open .dcard-tog{transform:rotate(45deg)}
+.dcard-b{max-height:0;overflow:hidden;transition:max-height .6s ease}
+.dcard.open .dcard-b{max-height:900px}
+.dcard-i{padding:0 1.75rem 1.75rem;border-top:1px solid rgba(23,93,82,.08)}
+.dcard-i p{font-size:14px;color:var(--ash);line-height:1.85;margin:1.2rem 0;font-weight:300}
+
+/* INFO BAR */
+.infobar{background:linear-gradient(135deg,#0c1330,#111e3f);border-radius:16px;padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-around;flex-wrap:wrap;gap:1.5rem}
+.ib-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--a);display:block;margin-bottom:.4rem}
+.ib-val{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#fff;font-weight:500;display:block}
+.ib-sub{font-size:11px;color:rgba(255,255,255,.35);display:block;margin-top:.2rem}
+.ib-div{width:1px;height:50px;background:rgba(255,255,255,.06)}
+
+/* STEPS */
+.stgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;position:relative}
+.stgrid::before{content:'';position:absolute;top:25px;left:calc(16% + 16px);right:calc(16% + 16px);height:1px;background:linear-gradient(90deg,rgba(126,189,180,.4),rgba(126,189,180,.05))}
+.stn2{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;margin:0 auto 1.2rem;position:relative;z-index:1}
+.sna{background:linear-gradient(135deg,var(--t),var(--t3));color:#fff}
+.sng{background:rgba(255,255,255,.06);border:1px solid rgba(126,189,180,.28);color:var(--a)}
+.step{text-align:center}
+.step h4{font-size:15px;font-weight:600;color:#fff;margin-bottom:.4rem}
+.step p{font-size:13px;color:rgba(255,255,255,.42);line-height:1.6}
+
+/* GPS BANNER */
+.gps-banner{background:linear-gradient(135deg,rgba(200,151,58,.12),rgba(200,151,58,.06));border:1px solid rgba(200,151,58,.25);border-radius:14px;padding:1.75rem 2.25rem;display:flex;align-items:center;gap:1.5rem}
+.gps-icon{font-size:2.5rem;flex-shrink:0}
+.gps-text h4{font-size:15px;font-weight:600;color:var(--gold);margin-bottom:.3rem}
+.gps-text p{font-size:13.5px;color:rgba(255,255,255,.55);line-height:1.6}
+
+/* PAGE HERO */
+.page-hero{padding:10rem 5rem 5rem;background:linear-gradient(135deg,var(--n) 0%,var(--n3) 100%);position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 100%,rgba(23,93,82,.2),transparent 70%)}
+.ph-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.12}
+.ph-inner{position:relative;z-index:1;max-width:1280px;margin:0 auto}
+.ph-inner h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:300;color:#fff;margin-bottom:1rem}
+.ph-inner h1 em{font-style:italic;color:var(--a)}
+.ph-inner p{font-size:16px;color:rgba(255,255,255,.55);max-width:560px;line-height:1.8;font-weight:300}
+.bc{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.35);margin-bottom:1.5rem}
+.bc a{color:rgba(255,255,255,.4);text-decoration:none;cursor:none;transition:color .2s}
+.bc a:hover{color:var(--a)}
+.bc span{color:var(--a)}
+
+/* CTA */
+.cta-sec{padding:7rem 5rem;background:var(--n);position:relative;overflow:hidden;isolation:isolate}
+.cg1,.cg2{position:absolute;border-radius:50%;pointer-events:none}
+.cg1{width:600px;height:600px;background:radial-gradient(circle,rgba(23,93,82,.28),transparent 70%);left:-180px;bottom:-180px}
+.cg2{width:450px;height:450px;background:radial-gradient(circle,rgba(126,189,180,.1),transparent 70%);right:-80px;top:-80px}
+.cta-inner{position:relative;z-index:1;max-width:800px;margin:0 auto;text-align:center}
+.ctitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4.5vw,4.5rem);font-weight:300;color:#fff;line-height:1.05;margin-bottom:1.25rem}
+.ctitle em{font-style:italic;color:var(--a)}
+.csub{font-size:16px;color:rgba(255,255,255,.48);line-height:1.8;margin-bottom:2.5rem;font-weight:300}
+.cbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:#080c18;color:rgba(255,255,255,.5);padding:5rem 5rem 2.5rem}
+.fg{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.fbrand strong{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#fff;display:block;margin-bottom:.7rem}
+.fbrand p{font-size:13px;line-height:1.85;max-width:240px;margin-bottom:1.5rem}
+.fcon{font-size:13px;color:rgba(255,255,255,.38);line-height:2;margin-bottom:1.5rem}
+.fcon div{display:flex;align-items:center;gap:7px;margin-bottom:.3rem}
+.fsocs{display:flex;gap:8px}
+.fsoc{width:36px;height:36px;border-radius:7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .3s;cursor:none}
+.fsoc:hover{background:var(--t);border-color:var(--t)}
+.fcol h4{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:1.2rem}
+.fcol a{display:block;font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;margin-bottom:.6rem;transition:color .3s;cursor:none}
+.fcol a:hover{color:var(--a)}
+.fbot{max-width:1280px;margin:2rem auto 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:12px}
+.fbot a{color:rgba(255,255,255,.3);text-decoration:none;transition:color .3s;cursor:none}
+.fbot a:hover{color:var(--a)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .pgrid,.tgrid,.fcards,.news-grid{grid-template-columns:1fr 1fr}
+  .pbento{grid-template-columns:1fr}
+  .pil:nth-child(2){grid-row:auto}
+  .pil:nth-child(4){grid-column:1}
+  .sgrid{grid-template-columns:1fr 1fr}
+  .gallg{grid-template-columns:1fr 1fr;grid-auto-rows:200px}
+  .gi:nth-child(1),.gi:nth-child(5){grid-column:auto}
+  .fg{grid-template-columns:1fr 1fr;gap:2rem}
+  .nlinks{display:none}
+  .ham{display:flex}
+  nav,section,footer{padding-left:2rem!important;padding-right:2rem!important}
+  .hcont{padding:0 2rem}
+  .hst,.hscr{left:2rem;right:2rem}
+  #sdots{right:1rem}
+  .page-hero{padding:8rem 2rem 4rem!important}
+}
+@media(max-width:640px){
+  .pgrid,.tgrid,.fcards,.news-grid,.stgrid{grid-template-columns:1fr}
+  .sgrid{grid-template-columns:1fr 1fr}
+  .gallg{grid-template-columns:1fr}
+  .hst{display:none}
+  .pil:nth-child(4) .pbod{flex-direction:column}
+  .fg{grid-template-columns:1fr}
+}
+
+/* Islamic canvas glow enhancement */
+#ic{mix-blend-mode:screen!important;opacity:1!important}
+.hero::after{content:'';position:absolute;inset:0;z-index:0;
+  background:radial-gradient(ellipse 70% 70% at 62% 50%,rgba(14,58,46,0.55) 0%,rgba(6,20,12,0.3) 45%,transparent 75%);
+  pointer-events:none}
+/* Stronger orb glow */
+.ob1{background:radial-gradient(circle,rgba(23,93,82,.52),transparent 70%)!important}
+.ob2{background:radial-gradient(circle,rgba(126,189,180,.28),transparent 70%)!important}
+/* Hero bg teal tint */
+.hero{background:linear-gradient(135deg,#030b14 0%,#051a12 25%,#04101a 60%,#030b14 100%)!important}
+
+
+/* Rotating Islamic SVG elements */
+@keyframes rotCW{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes rotCCW{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+@keyframes pulse2{0%,100%{opacity:0.75}50%{opacity:0.95}}
+
+.hero .mandala-main{animation:pulse2 4s ease-in-out infinite}
+.hero .ring-outer{transform-origin:200px 200px;animation:rotCW 40s linear infinite}
+.hero .ring-inner{transform-origin:200px 200px;animation:rotCCW 25s linear infinite}
+.hero .star12{transform-origin:200px 200px;animation:rotCW 60s linear infinite}
+.hero .star8{transform-origin:200px 200px;animation:rotCCW 35s linear infinite}
+.hero .corner-sm{animation:rotCW 30s linear infinite;transform-origin:60px 60px}
+
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="ring"></div>
+<div class="noise"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="l-ar">بسم الله</div>
+  <div class="l-bar"><div class="l-fill"></div></div>
+  <div class="l-txt">Al Bayan Learning Center</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nlogo" onclick="goTo('home');return false;">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARYAAABgCAIAAABXI8pwAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAABtbElEQVR4nO19dbxc1bn2s2TbyNG4EIMEEghBA0kI7hooVpwW9xaKW4EWKW2B4hSKS4tLcYq7UxxCQjw5OjPblrzfH3vmSARoofTe7+b9TSZzZvZee9nrshgRYTksh+Xw74KcMWPGf7sPy2E5/C8GtpwLLYfl8H2A/7c7sByWw/9ukMu50HJYDt8Hlgtyy2E5fC9YzoWWw3L4XrCcCy2H5fC9YLk5YTksh+8Fy1FoOSyH7wXLUWg5LIfvBctRaDksh+8Fy1FoOSyH7wXLUWg5LIfvBctRaDksh+8F8r/wTKq9M4CBAAtwgGXfMyzmqGI97+r11Q/Tl6U3VusMYJf4jS+9OwQwC+KLtVhraent/OfBLuNZi/Xn2zqz9JnKlu5feScOfKcV7F6B79CvZa7jfx7+dRT6DluZev2+xNbJkCYbtIQBDCABkX0pqz8CYODowq6ejVI3pv17E9fVmO29d5ZAV0vV/hPrcQmB9xyVqN5iQbbWQHertnqN7V7oavu8OpZvWP/q5T2fxpFNSNct1YlYfJ5rg+j6vudAbe37nrPIe1zPu4baPRtdD+3uVXax7bHQy3ynnnSEeE9aWRtKd1epe94Wn5/eFNb2RFDU9syPCT/q86jXf1U0MD2XifX6ffG4Ceq9ot8bulZ4SQZRexxHb2ypEYDu7iytvV5/UK8be9/xXcfCl/jwPYEv6/HLnI1lwr94ee/ru/G4Kptkz7ffsdHFMPVf7coPAv95QY4ABg1YwOn6ssZ/NEBd6ym6f1wc/jNMurYfF6fxvZ/MOTjrtVhV3thrwZhdbEPy2nuNQLKModaur0qDDEvwkyWAARlh7r6WLfbzUjZP7RLe470n15FLDpy6u7x4K8voG1/aU5b+znpxuV63LeVxi0GPwbMeXyzGWP8r8CPpQt3Dqw1do4pXImPWQFrr0DIpLfuGv/4DUFsrBoBxEACeyUsMFuA9+tlzz/HFRtCNN8TAUJPfeqoENfxcfEi859ZfCvIs+fSlQI/OLC6S9Z5pAmMZAi1tBZbyXL60P7/xnWq3MAvirKc0znrtEQ679G706M5iSP3fsoz9CCjEQRAZ/egiHQymB/6IHkJRT7sCepoeehKf7409SwjfS/uZlnivdjDb65kC0INmM97FK3o3VuNdrNfepcU1ip7CbM/u/Rt7Ywn9Z8luLaaA9bDx8MX6sBTEXkZr3+W9C6rECL35XnfjvHtilz7I2r3/ZfjPolB16xNEjyUkVtV/RGZFQJX+9dBUazcDXYSq5/7qpfT/Z5gRAWA1ZF5S3e9pr+sywVF1aKjx1eolVRuD7LqXGGy32tu1CaqItJRh9ZyCf2O8y9K4lobuval7T/Tu+eBlcLZvfa/euxjl6vXnEuaqf5uO/Ejwn0UhW2M1vMZ0LEcCWEACTmbYoqp1W3SpuEvbK4uJ7d8XcXo+guxiUg31WLdeukrXz5nUQTXJJLMQEgyDqY4GApbAQTVbVNfoWNWq0MMYmFkseqoKlle/qVnGUOtw19Nrt/S0/rFeG67WyW+ehyWmcokvenaWLd7kEuxlCRxY8ocuLFrWQLqkZfT8pufFvdr8b9mzAfwIXCgBOEMOAGAYEoYQAOBnG8TWJN8u8ovFBYyMEfVcGNtF5r/PDPY0AFQ/VC2tXYYzy7oM1j30FmYBqvKpmnCfYYolGAZeNWF3eUJspkpVVaGMC6FHy71GXdUcelnbl+34WAJBlqTxvYdcvW2p2o7toasss41edyyuXH2biZGq4uvizgOGnn6CHvab/wXQg/T2BtsDur78Li0SkdIq+6yABCgDC9M4dVHiaAf+uWDmC5+82wkTAkYAEiRRTpVlqCitGRILYt2rqLUGAFi7mK3z37JuW2sBGK0zvCSVVJ+SJFmbZJEqWCC1ICBVuoozzIJZY1IwqvLXMN54vfVXGTl25NDVR42YMmzYRiuP3aK1jKTWMWMNjAF0JsvZWp8TBQLIwhpYgy6uFIZVYmGBRJFFVSwkgu1qM41BZvFBAZpggTBKAG6MIWtB3GoiW2WLxBRg4qRSpQIMYKiECZBdYAFLlGY9JNM9vVEcA9wQUQ//nFKmawWsVdaqmsxhLWkNbWE1NMFaq6s/WZ2RydRUiUsahz2wEHGiq41rBYCUBkGlaUZstc7u4saQMbSYraX79aPDMrkQY2ypn78BtNaMMSGEIx1ttLWWHLcT9uobb5i0xtrrjF+9DHw656vTzj0bRMcccPDm605KLXwGBhjPmdle6tdQLBPCcqlffZEIJkl915VCamsY/2G4NREBVkgOYyHApAPCrdff+MVXM8LUWOLCzSWGpONts932608c7boS0ARmrGWMhJSAgVIQDkCcwIiDHJBjybckK7GqLzgEQyDJXYBFs+f+4pe/evPLNuHmuaoI12lPuef7lIbcku8VFy1sr6+v7zug7+prTJg8ef0111q9qYm7DlMaSaoLOckZOINSSgomXJkNwxIjMgQOwVjNuhwEHgGCO1081lLGsS0DCMb33BpichDyea9rWixpxphNU84kEUEyxjkYAj8PgDPYjBBYa4zyXA8AERi3nGfs1RprjLVcSg4G2Iyja6tcJsGYSmPHL2gCGM+YlusHIAsIo7WF9DxpCWGY1Oc9UEY5rOP6RAyAlK7Wmogcx8H/JPgWQe47Ig8AIpJSGmO01kJKKSQEOokuv/7av7/4/F+feWLvfffZapNtmwcNn1vuHDVq1O9uuX5eVN5rwy1SYN78RSedesoqa0845JBD+jFRqC/O6yz1qyt6vguCNUZKViPPvQScfwN4l2OfWWgCF2Fbx/XXXz93QUslTLgTCC9fjhRx2VpS6657kmWANeAOY8LC1rSjKiNiBEacESdyCI6BJzzHAlEaB0JKARCC5uYvPv60IwxiU1GlRcX6hjL8WC1ykPatq5s1Y96AAUNmz5799Zy5H/zzkxtuuNHxvP0P2PvAAw/oP8DxhCQgVtp3JBOWcQEABCJijHPOu8TOsJLm8y6Acjks5nMgTlpzKQEQUAkrfuBwZgGmjGEgKaTSJAVTmhizjBsuiEPAFV3eHqO1kBIMURL7np+mqe/5XIBzDkAb7QgJABbaGsa5EA7nsIAhwxnP9D8hnMwJxpjIzBWCQSkDq1xXmigSQUFISaZq5S/kPQBRGAY5FwCIWwLnIIALmUn1LS1tfZobs+v/6/CNpvel4g9R16snZOKWEAJAqtIkTVKVSsbSRLuF/OCxK199zx2Pvv/SXJSvuemWGQvn20L+5gfvveGZxzuAhSqZE5ceff2VS266fq5O58Vxsa5YTlTG17kQqOnoHPiePjTGGGBhVM3Vg2effXbG9JlxOXakJ6WXxCZJicvcQ488saAF2iJWROAG3IBbcAJBykzJ4bA8M7gRB0liTFsYwHd9KTgAHZUBygVeR0dJSr++riFJlCEhnYAz2dLS4kgxf94sR3KdxEZrkExTe+11Nx173K9mz0k4g7JwHKmsYVwYGJWmMATitmeoAyGXbTjA93PVkQqJmp8/nysKJhmEMooxJoUE4EjGGFyHOY6QwrUWSRoBgMlGRJxLYwCC7/lKke/5WcuccW10hkhWE7iU0hPCATiBGUvWgEEA3BKUMkZZEJdeACBKkWhwLlzPA0E4QWaVEQKxqoqjZBHkciBE7R1gUAZawwKMIRPqm5sb/xsi29Lhm1CIlgbLuthxHGNMkiRCCNdxPddzHZcBxx5+xJAhK8ycM7e+f/8/Xf/nR559OkBw/u9+F1vLi/lbHrjv4XdfLQwZdPgpJ7YZ9eybr198zRU53w8Bx3OSVAOANiAAlv8gKibLZA4DEAQH4aEHHvTdQAjpOT6DSJV13Fwu37BwYcc/nnuVcXDh6+p25SrblFW7lGWwLOsYs5mBO0N7Bqa1AiBdD3GYVqJCoVCqREZZa8CZUAaM8cbGRse1gU+MJY2N+TguM0Zpojw39/BDj91x590Zx7QAZVKRtY7rQgjGOefM1HSiVAMMaYq21lBKAAgrEQCbEuNINQygiGKthfA49zRxbaEtDCFKEKeZq9jx3KDqWbUWYIwDQJoChDA2FkgUylGaploKyRms1ZwJGBhtlTJEYGCCCymdTGrgjHuuJ4RUqQbBGngupAQTAHEdhuAcxqRJAoLrgDPEcdURgtQEdY1kIR2AI1GwAJdIFLr0xyVfPz58J6Hou6AQAM6553mMMaWVJUugMI6txQW/OnXc6LFxmDT16Xf/w4/c9sT9zX7fU048ZcaXM71i8dLrrv3Hu2+MGTvhlyefHFv70ltvXPSX61ri0AJVuV+IDItYL17074HNdHEueEafW2bPfuv1NxhjHCyO0yhSABfcbesoNzb1u/W2u4yFkNC2GjzBwDmXNeshAQastqDMErNMQgMApWlc7TxnhXzOcTwiJqV0XbcSxcW6hjBK2tpaXMdEUUsadxgbMdJCMiFER0dp6Aoj7v7b/Z0lMI5YgTEBgHNpjSGtSWtrSYgqUXEdJAkcF3V1ORBUQp4XgMCdqjWTAYI5aaoyLTxJDOfgHEkMz4XrwBiYTCzVGmSq5jUDwSE4QCgWJAiVSpILXMeRgI2TkHOerYcQ3JGCAcpAKShd3c1JYjO+4TgSBM4Rp0CNN8ogl02R63qZXSOJUWN12XJZbaoTLXgVSXjND/c/xGb37eYEIso+f6tFLgxD3/eFEEIIa60Usuj7BugATj/8mF/+5uw5lY5Coe7xJ55srm/Yed0Nr7nkijPPOWfA4CF//PM1P/1pabf1NsEhh9949ZVPPP+PuL39N8ce71epkYIjshnrZbJdMsbju0DV1yugDRgeffTR9vZ2CylkYK0QTObcvOFeuZLkct4bb77z7nuz15gwmPMq5QNgwQURYME0g+bQYAZMAxaMjKk6vnK5PAAYg0oYhuGC+Z2F5sGcRWG5o8/AlR598oEV+sIFoGPG6cN/fnrKqed88tms1o5Ksb5vnOhKpTJz9szpMxeOH9fXc0BAQkoSPOGA847W9pdff+Oeu+9/+fU3GhqaVhs/Ydddd1111VX7NLjlsrnhuqs7Ots7FrVKx0/Jq2tqPOzwn3OhX3jx+aeeesL3C/V1TQvmd+SChlyQP/jgg/v241xAGXBL0hGwgDFz5877y023lysJwJS2xFl7e+t222279TYbk9Guy52qYQMfvPvpE0888czzz82aNWvoyOHTpk3bcqutgiAoFMQ7b3/w0EMPWaU55zZRmvMpW2yxxRbrMwatlDTpZZdeOnf+fANXy8DPNwjpH3rowQObBAitCxY+84/nHn3+1fc/+axfv3477zJtow2mDhzYKAS0hewh0/eOdfyxnbDf7hfqwp8qUi1j186fP//8889fsGDBAQccsMlmm0ohtdEVTdZzXn7r/bXXXO28U848+aLzZrbMLzY1/PnGG1lkt99w49NPP/20X5/V1NT00EMP+yS2W3/D4NBDL7/odykhBrSles4834krYZD3UXVZVnvBWHcGApZULKnm6GA1/0xtclWaOq4LyRBX/vH4oxA5pYUxEtIxSpNONJlCLl/u7Mjlcs+9+M6YVQZ7HjhggDTWOV/CcogE3AAcxME0mAHAiPku/Gp3eBhHOSnR2ORw0dyUj8h0liuFYkM5UYUi4gheAEgBisaOG3XLjdetPX6jxqDQUenQxIWWY0aN7oziChAAEshlIUSpveSSy6659vr5La319X0NWMvCWdOnz334ocfrm+pvvfXWFYcPvO3mO+bNme36gSaplOfXFw888uf9GworDR9y8sMPdcZg8AOZTxOyzFtjnUkbbjze9+AIIcFgVWYwmT9z5k1/vqG1M2xs6hMZSt0cs+boo492OSAMKOWKffHlV/sfcNjCha2lUslxhPTct9967/XX3z31jPOOPOzIgw762fTpM+68/a5yZ7lQqEtUzNyANQ3YaIv1JYMUAsY8+Nc7v5y1wCk0RoqncK10Dzv8sDjFCcf+4h+PP5Qam1g/taxlQduJL55orfrZQQcddezxzX2krq14zd5oe5m5f0RYIlK2BrY3dHmKwEmZNFGxhcms2JVKZcGCBRtttNEzzzzz3nvvHXDAAddefV2mKXie89sbrzvhgjOOPes0gj7vhFObGxrbSuXmoUNufej+e557un9Dn9+cebarqCjde+6758lXn5uy6lo33XDr8ccd3wq0c9YCzCFr87lQAcRhOZSxJtEmTqFjpKbmj+iB2nbZLwDcVNVlNfv9V99/41XrNCZO35gXmZ/fcZedBg9p8jyt45aCJB2pW25/NNbVMIUECHxJJQOSYIqE5tbjxjPcGJ4KK6WRpCEAC0EQru+DAVHMAJhQp2UnyJcTGMHKEYKg1mnOIVShPhhW6F9IpdJhviCc0ATG7WS6BGjAsQkzETraj/zZwZf+8UqrnaaGoYkKktjPB/1t6hvrtrZXtt7lJ8+9/E7eKdZ5jaWyTnVOsj5J7Jq8HyJZdeSADVZbOecXjHUpNlxxz2+48vrbYo4UIAsQBwfSCCq6+4brWUz1QZNJ0lDRPJtfaYMtR49ZAWkIWgSU3nn+jZ222m327NZEcc68wK+PooQLjzsFlXrXXnvnMUedZJQRZBsKTUlCCZwS46FXDJHJuhxpGNjU475JBLMeyPeCvvNa0z32OuTBhx5pqyTCq4sSCtwiS7ljnYZc4a7b795rv6PmdSABOg0UsnAQAyh8B0HpPwHLjopewhyXoRYAKaXneUmScM4rlUp7e/vGG2/ctwarrLLKaaeddvnlVziO6IzCUSOG9+nbuKjcdsa5ZyUwF590dv9CQ9haCnK5+x9/7O6nHu1T33zCcb/QpTBqa7/3r39LgDzn19x7z0+POWLX4w7/w/13JYy3AOTwUiUGAczhXDhClJISq4U3LA4EwFbf0f1OQKqNH+QBDWsfe+gRY2yiEFuZMJlYtuPO22271cbCdPos8YXxBJ83t+Xt90oKyIJuOMA8AW0BSwzMSk7cMmuZZcSF5aImaNos5LQW08BhHZdLJwAXYJwJkMl2bdYvmEokpFcpxw2FYqWzs0+fPvMXLlxjzRESMDAMGpauvvB3Tz3xtOMEaYKOjoi7Oev6pSgN8nlSmhKlyuFFF17Y1tIehnHfAUMY94z1HbcYpTpGCt/96e67tc2fHziu5/mc80pnecZXsz76ol0DnMMmKbSBlFi06O2XXlZKcSmJOQaOV980bc+9IQFBKLXGM7446vBjVMKJhHR9LnPtnREJqclqrfO5XKm94/WXX7n37nsqUdLaXsnl66XrErhmQtc8UyAjyXLigCRigkttxaV/uvqtt96WrpcrNnSUygP69iOlO1va6oI8J9ba2v7hJ19dcfW9ChCitqgwoExb/i8Yub/FqL0kIiVJAqBcLgdBwDkvl8ubb755LpeTUgKQUlYqlYkTJ/7hD3+4/PIrm4LcLlM23nWzbWJmP18457DjjqgDrjz5zBFBfVzqdOtzdz75yB3PPzqsz4CzTz5tYFB3wqHHMOCiO2/929OPsX6N1Nx4x5OPn3fnjWUgAhIhMnZAkQFEg1c0pPhSDQwMYLz6QhZAzQncgivJDCxUjEr5/oefNbzeWCVdYwRr6Nu40ZR1pm27uafjHEtJh5YSFZfv/utdkYUG9wEoQAAOBySzshr49h0WLuPkaZoaYzzPi2NYCyZAXID70N699z3+0cKFZdeD4o1B4/T2hXscvG8fhnqAIzJMv/fsKzfdfLd0cpw5OrVNTX1KOmQFkQa2My55ZPo4sqCSGf98P9UJuW5rR2ti08RoJoQHBHDBnA0222KVoYMLSCOTJpwcTh3z5z/4yGMaUATuuplg9I8nn5k5e46Xz0XGxNZ1vHy/vLf5lBExAMHhF087/uT2cphwpnWcpnHMJCvWF5v6AbBpieLW/vVS2PDF55/r229grqFpfkt7wXVMXGE9CV6PifM8r1QpG2MefPDB9vb2THHwPGfO3JnWxHV1PocOy5WmpmZH8j//+dovZ8TZjcYAxMHEd87T+4Hh22XHxbDI8zytte/7ABYtWjRx4sTGxsa+ffsSUaVS4ZzncrlKpTJy5MgzzjjjL3/+Sx8ujtjpJ1tttLHvyvqG4gG/PDJN1CVnnzVi0NCORa0NdXUPPvDAy++9uWKfvldectmKK476w603PfnmG3Ujhy5iZgFXuZFDHn/rjfNv/fMcWBY4oQU4mOMmlViA+8z7lt1LXfGLPAt2BaRGCmY/fPXVz2csUjyvrZUOg8s32HRjR2K10aPGrDDQ59rqCJT4Dp556sm2SjU73c1aEgQIZlktZO47YRHnnIg45x0dHX/8459OPfU3p5xy5qFHHHnCyadPmrLlsSedYQPBC64iv6WkNthsw2N/ua9J4AEFaMHULbff05mISLPOMAmChtbOMg94RJUNNlr/iiv/ePwvj15hYLMTdxaYKcWhEdxYm/M94YkoiYVmLpwEUtbVHfazfWyl3TClYXKe5NY+/NDjrRFMZqy3BmTvuOte1y8KRyZGx+Ro6+y767S+fjXodu5r77z+/FsGknkeOAMXMURkOSQdcdjPb7j26p2236KtZTq3pT719bNmzrac1TXXL5gzt7lYt4TKWl2gKE5d18822KBBg84888xHHnnk5ZdfvPmmGzwXrtBKVZqbmzvb2lUSpkn0ystvVkMXefaPG+pmbz8mfCf1azEsygIRZs+evfbaaw8ePNj3/TiOiaihoYExliQJEUVRNHHixPPPOe/K3/+JYnX0trvtvc2OcWc5UulJvzmrBBz/y+NWHjTEaa80KP6XK6+JAAe4+m+3PffBO+Wcs8DqVoe3OXweVGfefebjD/701ztmGZ0IlBQgmevnYDmzS1UhefeLVeN/u/QlC5uqEFY/fM+DGoWK8sFFamJ4cvuddzDWwBc7b7M54orDTM7jpMulztZXXnvfACoGZzAMsdVZbB8jZKJE9hT2jaJ4pk/6vs8Y++tf/3rXXXfdcMONz//j+XvufejT2W0x/LzPycStSuy878F/uvSCugDSzYJWy8nCWa+8+X4i6q1XaOg7MFLkBsUVxgz7x4tP3nbdRTtuPemw4/Z/8B9/v/WqP8qwQ7jCrS9IsKQSuoGb6NQkmoMruBDeHj/ZqanO8RxwYXUaSS6+njn/hec/ZQJJmoDMgk8/e+efnxmeL4Ul6cmEBzLXsM8u2+UBC6Vt8o8nXq7P9V/UWUoZOUHOQDq5+l//5jdvvvbUSSccvunGG/3x0gu/mvHuppusWW5tr/PyUVzSJuzbt69RxKmHsMWqeR8ArLWu55WjkDH29NNP77PPLqNGDRrQv2GTjSf/893X8z5BxypJ8kHB6iRw3Xfe/meqwQBZjbIXjLFa1MiPCt9VF+oyM2RBSp999tlWW201dOjQIAgcx+Gcc8611tZaxlgul2tqakrTdMTIYb+/+Hf33XJbI/CTyRvvvOkWDfXFr1vnHX3WSYOZ+4uDDl9z6Ir93cIRhx3OgHNv//ODLz+XFgO3T2NZctFUz5say46U/ZqSutx9Lz135X1/m0VQLsoABMCgEv0N1L/L19Yj5cUyqLwj0dr24nMvC7eorJRuzlj0HdB33PgRQjCQ2mbrLQVZGMvIcpu6kt1y810E+H41RFsKF+AgwRaPyV/2RHOutc5iOKSUURR5npfP51tb2w0JC1HX0NjSuiCJy/vvv+/xvzqgcQAgIBlsqmGTrz77eP6C9sQ6qeXz20up4xnXufqyS4c35GHhiCyGJlpr+02O/9VRjuBzZsx2hWioK4ZxxfFc3/MsYEgShOjfuM3Wm5iow4VOdALOJJy/3nG3AZjgYHjg3gcqSiTCA2cWpJmz4Sab962HB4A6mI0//XjmvIXhoBVGRNYmVnRE8dY7bLPrbuv5Aoy0nwM4nECeddbpa64y0mNJ4DCllON45VK8lC1HzDII18nm5/gTT+jTh1uLLO7X85hTECeccITnWTKWc5lzXbL669kLq9IFAxEnW41i+fHhX9aFGGPz58/fc889gyBobGwkolKplDmCiCgT9CuVSrlcjuPYcZxVVh13zpln3XPtTSNl7qBtpm0yZYqsD+aWW/f/1THDc/nzjjzi92ees8741X//t5uf+eQdMbxf7DvtJk05Czs7k3KJGGvVuuK5fFC/W578+5X33fUV6YghBLSG57mgDDFs11ZezFHdO9HEekg57BOPPDpnfitjggmXMY8zb9uttg5EdhfrM2LkyuNWF0yaJHUc4la98sKrX3ylDZAYrUwWhy5qtnLKwuTwjeJcRmVc1zXGdHZ2NjQ0WGuTWHm5+rgSNwVu0tni53J19cH9t1wxdd2Nz7zob20WHHCZARdfzpjDmBMEBdcvxJx1+N74SRNXH9onlyiHwTCANFgML9lk5y3q3GBEU3+bqCSJ4jhyXZc5IMCpJbHttveuTb70bCI8lpBxSbz9ylvvfbSQSwedpccffTyCo9ycdH1jTF1z8x4/3SvwIAgNTAlJr7zxTysbKmFEjLWHprHfkH32+0kgkHbEUBZcxaYMp76p/7DNN1rTM4u4SfNBoaWllCvW96Y33ZMWx3E+n29oaFh11VWNgRDwfBhLYBosGTtmuEkrWmvPcbWKkjjs7KhYW3VyWAJV3TP/kyxyywJr7X777ae1bmxsjKKIc97Y2BjHsed5YRhKKbXWQgjGGOfcWFupVFZdddzZJ57y2F/vKwL7bjlt1x12cBmSUuWSq6+2gMw519xzxwsfvK3r8+1QkbDM8wCwQhFBAQZw3JAoLfj5UUP/+vxTV919x1xrNAAJ822ib88FY4AEOTCI0/sffDRh0lorGVNagPk/2WlnlgW3OC6C4sQNNwmCgrAgkzBYj9znnnxBAcyVjnCquQeMEzgnxgBG/JvVocwlkMUQBkGwzTbbTJs2bZ999tntJ7vvt8++E9dereCYPDdpxyJPhALRFVddf+HF9ykDSIFIfzV9Vsa7Ojo7g2JdZNTYCRM8gieFyBJ7SWXuqb5DB/nCCYQHbVWS5gJPW9VeggUkgzUGwh21xoSxo4b6POWejFSq45gp/fTT/zDAh+9/PHvW3MjaGKikVkh/hcED1l3b4wyMWSDunDXTQjC3kCjDOS/W9y1Fcf8BzQzI5X1wrkxFOowsh/DGrDiUm0rec+JKHBSK2i4ZJZzpQsz3c2EYGmOGDGkUDgAYA8EZyABm+NABjQ1FznkYhqTjxkIhClU1CSaLV8g8rd+6If4D0COtq8ZzuvKFsg+Z8JYpOZm/aOHChU1NTZl9KTPKeZ4XRVGhULDWuq6Lmtzi+76UnGBGjV7xd7/7nQ80AHuuu8WB2/+kwcttuNkm84guvuWGJ99/MwwkCoEmghBaW84drsANg3RgDAQrc7QyUxg55P4Xn73t7/d3ACVlhUQ1+xpAFr1jq3lFmXlGJYplagpZrVJYgzTp/GrGOx9N7zTMcbiAiRMav+o6qwzP+YACiHnw8htvs6OQvkpTIZhKk8DKu2//a5kQA8xCMoFaZinAeVfiHbPLQqRMgSyXy0II13XPPvvYCy885bxzTr/ot6f/5txTb7nt+peef3z1AY3NtpzaDi2Ur+iuv9z5+mftIZPwimk5Jq24hOM4juPBQmudeUGqkeeMVcP/tHYcJ03TqoANa611/JrrkXFwAe6ecOzhro0AK1whoKCT22+/M9W49/5Hy7EmZv18rj3hinmHHbK/TWvDMNYqrUGJVcJxVWpKpVJ9fb3rIq2RqzRNs+5kolgQBO3t7RkF6SXUZAyxGpMHS0RcMJEFr4IIkgOZsgtNNiWtssAX33HSOALnWTWKzJxN1YjkfxkBvj8skwtlPp8MZzo7O5VSn3zyySOPPCKlXG211T755BPP81zXzbiN1joIgkqlAqCzszMLOe3bt292o5TSWisdQUAA5IG9pm5xzR8vXWPUSq++9/YjrzzHGwu26HemERyHOQ7jnKy1qaJE1cr8cM0hcrmQW69P/b2PPhzCuC6PEp2x8Wr8HrFsI3WtlOc5jMFYw0GeIwEDi8cfejTS0i02c2HjqMMLcq+99tZKQyaNGzNxxMgxI8eNHzxi9M577t3W2t5QrDNG5zxXh2Hr/JZ3P55bATgHjCVYwywxDuLMsi7v0DfMp1Iqn89nXoGODgBgHFZDMGhlmhsKx/18rzyU4whNuug5SaV890NPtGuA5PChKzBom0ZGp6XWdl86UXtJCZSjsCq7MAHmwlBajhRsa7mThHQch5FlsN1iLkNWJWm1dSeMGjW0o3U+M2kxJ60KW+YvfPSR557+x2tc5hyXdZbac80DC00D1ho/pjlXsxjzoKGpHxeacQVrPNfNByIulzo7tMNhNAHIB41keZpG8GVHWSXW7T94aFAIdBILxpYaK0yMW7ZUNt7jYmaJ1TJ/M1mdLXHdUrNx/8OwzEfGcVwoFABEUdTQ0DBnzpydd9552rRpH3/88Y033jh69OiFCxfGcRxFUUZfM1wKw7BQKKRpSkQdHR0Z4XFd9+OPPz70oIMF0K7VY88/3Y40y/y64ca/9BsyeEG5FHFkejppTVpBKW6NtHDAHSEd6VCqLOlSqSSl5JLPnPW1BVxfLla+rQuFOIetpmYiiULGCDAgoCO6/Za/tnYmZUXluCwlvJwnpcz7HlIdhmklVInl5Vjl64qVSomsBRlScXvrovsfekxkXnwmbRZgSpyR4MQzW9w3yHLGGACu62bY7rq1BRAAwYGA444cOcBQmWnhMl8n7UqVPvtiriMB4fhFz3Wo6MvAkY2eWygnbzz73KzIqkJBAzqxSlmQgMp99c7nFa0ilwnPzTJ/uuyE1VRU6wACdfm99t9zcJ8GqcJUlQpFNw0rp558+ucz5mkZCDI6TVKR23Cr7VdcAR5qlS1YAUFjQ4MPU4LVUCovjE1Kr7z0rgGMx5IkhHUcChyEYMljT7/REvlzF7WFccV1oZNoCaMlJ7bULPSaVzozuBEHdbvRGcFyquaQE7e9cuZ/bFjmU33fN8Z0dHTk8/nPP/98ypQpURRNmzZt5ZVXBvDMM8/U1dUtWrTIre2FMAzr6+sBOI6jlLLWOo7j+36+rvj222//7qKLdtttNwMc98tjL732qhPPPH1+pdMDJqy+BtOoLxZ1rMAEUgOjGWkuIKUUDheMmCWWGqGNp9EnV1wwY+bU9SaNGzK8HIVLdrsrmwkAg7XWAtaRHCBKExg77/MZrR1xUGzkriv9wM178xfM8VyyWgnG+jb1lcKrr68XgnVWWh2Xu1LoNA5yLnF66MHHIyDKMpGhwbKY7J6l777JOud5XpqmQghjTKEAAHEMmxVE5gCXL7z+dq6+rzKMWUYmbSjk58+eU1EAnBFjVtFJBbpSFzhhW2uTJ2d8/PEV116fACnB8bgjPd2eIMRpp5wzZ/68fH0BQpYqZQBZRhNlKJTtV5LgYvIGU/oUgjw3RFEp7Mw7Xrmtwv1ibBhnThDkFdjue+8pAZtENY3LhWZrTliFbNnhENaW2xbkpLjwvAsWtoAYDPesBgjMyd13251PvfSmV+wbFBullEKwIOcsZt+hmjhHPUKweq8oz2Y4Y1NVPs8sYHtUQeoiXv+TohMqlYq1tr6+/pNPPtlhhx0451OnTr3jjjuMMeeee64x5tFHHx08ePBnn32WCWyFQqFUKgVB0NnZ2dzcTERZ7tDnX0w/5ujj9j5wP9dzjEUCk+/b9GXb/F+ee8ZnUefB+x0QLmiNZ7c28pzn5eE4wpWOI4QjrLApMwm0UgmlabOb8yoJm98+dZXxP9t5Nw9oDHJZdjEDA2NdHCBDIQZwzrMoGtcRIM1gwOVf7ryvPeaVSiVNU+W4czvaiwXuOUmclOM0NYmO2zvTzrJkuq7B0Yh86ZAyTp45OTHz869ffX6G8KDJAIpBMWKAAAliLEtiXRZIKdM0jaLIWpvL5RYtAgDfBxcgDqPTV5974Y/X3z99kUm0qiv6El7eLfSpc10ODWf0+LVHjBzsIAzbF/ZtKFY6Fw4e0Oe6y6478thT53eY0AAaH7z72bZb7TC9pb2xrlGXw/ZKKVdXx4ln/tDaNs1QQYA5zQMHbbfFRj6LXY+MjYTWfeoaCCKxnGQhNXziemuvOoYDcD2ZCWBEEsLdctstHMcwkwYO79NQ37ZonrDJ1ElbPfz4a27ggWPenNYLzr7ktNMvDuqLnUkljrQ1srOzM05D6jlHi2/4pVk1GQcEyAExy4hqojIxvbTb+Y8vyy0zUjufzwN48cUXDzrooCiKVl999dtvv52I1l9//enTpz/++OPPPvvs3//+9x133PGDDz4YOHBgmqZZMowQYs6cOZmB8rXXXz/z1+f8bP/9oWE5JMcZJ55y+IXn9B00YH5r28m/v+CKU8+76bIrDjzpxKg9jsmDjkXOJZAiBWJgHJxxzj1DyaLWXDkaWtf4+6NOaqiaMjXvUVGBQWT59hloraXknDOAwAhkIYXpqDz09IvGy/NU+a6npZfv0/e8X58FUoP69eNamzTkzMKmIO364u6/3vfUIy+RpoouaeHnncK9dzyw7QZHadgAWpAWljPLraxVn1k2DllrjTFNDc0VZVra2/fbbz/ZOc+EpWJdY5xUWltn5v1iuY0XBq5C6JwzZ05TMGzGF9MPP+GgvEACIb38wT8/4KQTTqsr1Le2t3huUGprA8PTf392oyc3FUlsWlvqc670nTkL24b2b9DctCcpcpIRZwTiPeTdalY3h184+tAD7/rr3W1Juamhn15QXjRvrlsXkPBLidCue9jB+7i1UGiAaWMd7kK6a05cd+SKw974rMwQhKQHDejfUe4g0kcccuRRUC5nDqSJtVKsWM8dT0ZJWqxr0FInS3PdZIaApTGQbFKzSkeSIInBZoMBt9wQ631eAbpMKz8qLBNl0zRN0/TQQw/99NNPJ0+efN999zHGpk6dSkT5fH7SpEnGGNd177///iFDhixatMhxnI6ODq11FEVDhgwJguDRRx+94PzzD9xv/7ZSKfagHDCDVQatcPaxv1o4Z54c1PSF6dz2qANT4PrzL8i1pfmKLfoFJNoYBRAEIC2EtTDckJfqlfsNvvbUX3vGFIEcUcC4MWlXIEK1LFXNlsAYA9UKLlB25oJ+/JmnZneEIVzBAJ0uaA9HrzZ+t902+unum0+ctPqUjdfaessNttx8wy0333jLbTbZePPJhx52QM7xOGMVEyVWFWX+9Wdf+3xGDCY5iJFlWYhkjXYupZZpz7nmPE3TJEkcx/n000/nz58fRdGXX37V1l6KlW0ppyroO70ljq1bX9cUSHfkoAEbTlzbGjAwAtt2+61WG7dyJexoaq7PFb0wLDd4eRnzaH6nQ07Q2Bw67uwobFpheFQJHYvA9XSiheUMlrjKCtxxW4sp5HnExhnQPGnSBKIkiUJfir719Y4UYE7C6iasveEmEwdnYro2VCvPawGLpuY99913yIC+Og6J8ba2DhZXiowkKWNMYmRFuyzo4+abW9raGUxDzk/DUqhNWRmzmKeRvjmFMsslYSABcOplrVmCC9E37ef/HCzzka7raq2vuOKKvffe+/rrr88EuXK53NHRscsuu5x//vlCiJtuusl13UceeWTIkCEzZ84cPHhwFEW5XG7WrFkfffTRzTffvMcee1x44flDVxi87Y47KsDGaRFYZ/hKvz/j15WW1rwnBw4ddNTJv7QWf/7DRU455G0dPuBz7kiBTHOPY95Zsi2LxvYd+MdfntQA9BWCa/Jq9lEisiCq0aIuW4IQIkmSLkMSGIcyf3/0cTh+KUnAheO5vudstskmBHAg8MAyFdZkhM8mUbjqhNX6DajP+cx3uSBtVbxowfyXX37VggEeyNVCa5GAWUbgMAxakpE9NWEwcFczkeikkPdUWpacPKFzjmCMJUrlC3VhnLp+EdI1gnPXA7jWOlWlU087fpXRDaK6SBJ1Taee++tiQ11H56Jypa2pKReXOz2y/Zoa0zgqx7Fignm5aTv/ZNCQwYB1BRekwVIGw2137XKTxeBagpsD57vtsXtDLmfDsmSsXIkSzSrKBsW6bbbd0gE8wNhUCBfgWeYsSEC4O//soPGrr+J7RnDju6y+6KVxSZLIuXljGBeyHIVePverk37Foa2OtIoCz3eEK4mcLlbBuOYA0xy6lsqyGCOv6keG8Sru1XQhh5SsVqWrYRKzS54Q8yNAzaGxRGo3EbmuO3ny5Ouuu84Ys+mmm2qt29ratt9+x/PPv9BaTJ68wRFHHLHppps6jvPII4+MGDbyjdfebKhrTKL0s08+Pe+cc3feadof/nDxFVdeutGG67/81OMfv/V6XeBIoAFYtbn/1cedWpjb7nR2BoHY7/ADAFz1m98Wk9SJEx4morNcF6nG2DZW0n6VeI2G5kuOPqEZeOGxJzecOOn1l15MkkRbw4R73m/PXWON1e+77x5lFTFosqUwAqCU8bxcHKWAoEiDZNv8tpdefDVJo1wxlwgea5UXdvvNprIUPAshzXarBwgJ4XlBI5jYe9+dlFroxlGRM7JlL8Ddd/zVBYxtgN+vJMMKb/M9zpJYpaEjybdGZjQTXIKlcYJiYzu4EFxHHUKkkoci7vB0SEQGUlnDhEwSxklCdwaiwk1UKLhX3XDJ9j+Zyhl4VssAUiE3boNNrrv5+n7961PdIWTKqIOLcqo6mCRXMmbN3jvvesrxv0yMFjlpVFnwWLqxpYpruAfoBMShgcRocA4SYP76m2y78qARzcKxOibHiSgHr+j6arddJjoAg3E5Z7AMRnJhNCBcWAfS+/0VF+2y51awbUm8iBBzzpWyHA7TVnDTv39w3Q1/WGnl4Qq6FLUXi54pRznLvVQ7QKUTYEAQtCehkJojFkg9zm1UCQTCqBo4RzoBpdCp5hyOT9pQHHPJPQEvLjVLlCowGV6TKked/xUs+qYYOc55kiRSyt13333u3LnTp0/fYYcdLr74YsdxJk6caK2dNGnSJ598kjk6HnzwwU022eTDDz/88ssvb7311r32/umFF1542WWXrbvu2jOmf/mz/fdbY9w4MCKl0jgcyLzVmgZcftpZXpSojg4pzF8fvGMIxLXnXMBaOvOp6UOyLlJ9DMyc+ZusMv6Px5+RI/XOyy+feNRRn7z//pWXX0FEjIsTTvrVZVdcGUXRMb84TnARJ7HWOp8LADiOAIMf5EGcBYEqR88+//L8+Qs9T3aWO8txVGionzplnaEDmnwXqJGyzPNA1eBUCWIbbTwp57PGQqDDCliSr3Pee/edD96fLZjTsqDNLXhKxFGlPZcTQY6TjZgxLpgAq4QVENwg39ne6RTruYDkJIUWQvlMOVwLDiZ4qhPOuZQuY9RQlBtPXev3F5336svPr7Pe6kEBAMjYzOBvpEuMrzlxzRdefuaMM0+OknbXtZ6PRS1z8wVn2LChV19x+R8vONURkD6PdEXrkCNZ1D6r/4AmU45cwPOgFJCFVagUnIE7cPzRI0cxYy2DXyga7iniP9ll+4YieHZuGjLHGgNQLQgjA62tV5c/97wzn3jiwS23mBpVOoXDC7l8R0dHPudut+3mTz/z9zXXWmXhwnnCYX7AAeMyEiYteEIlqK8DGNpaWhr79nMkqbSTrAornU11BasRBEhTaJMyybMs/UgpL8ipOKqvK0iHd7S3BDBxJ/L5rDKAFozlgyA1yX8SWZaBKRnbWTLdT9ec3FtsscWiRYustVtuueXFF1+cpummm24ax3Fzc/MHH3zw9NNPDxs27Ouvvx690mgAc2bPHTR4oNH2oosuuuyyy9Zce41XX3/l4IN//qtjf1HX2AgDbQmu0wGrwSPgn/Omn3DqqfV1dccfd3yfhqY+dU3twE+OOTBfLBiddra0bTZlgyP2OXAwz7370kuH7LnXCs398p773IvPh3F48umn3f/gfSsMHTpv9pyDDjroF7/4BZgkkACL4zTwXa21ZDyNQsnBPT+rXWGEyIJA0hQ6pUKBMSCKdD7otqzUDK0ADGwKkoAXG1hZq0Gv4QCOsEgiuB6sBENmlhcODJHDQEQCPE0S1/W62+uqiZhRWQbBYG23CpeVB+o6d6X6JwMAY8nhjOkEnIMYcWENa+noTFPd2NREBN+vlv9PI3g+kAIuDEOYwvNQCVHMwRi4wjIYkEYYQwblRe07Ttvjiy9mBbnGspElWfDrCn+7489rrNokAWaNwwkgreA4DtlqP9O04goGySg12nDBc/MWdpJ1mvsHAGS1wCMEbKpST/pkwBTgopQd2GThkhFcm1JJ5OvBHAIUQ2s76hrBARj4QseVdo8Jxh04PgwgJYBUQThQBlKiEiKfBwO0Cj0nkyLEj60RLVn+tyvTu729fbvttpswYcKYMWOOOOKI7Pu11lpr4sSJW2211eDBg1955ZU0Te++++66urqJ66xXKYU6NWTp12edM3TwCttuvd3o0aN/cfxxUVImqyhNSVlKNRGVrVlEdi7RTKKZRO+nlblEC4nmEr2q4reI9rzqD2sce8jx99/5PtFXRH95+sk+K6649nqTJ687pX1BKxk68cQTB48YtvGWm/fp1/yb889LdWLJWCJtzcJFrZZIa5skCZEha8ikpFNd7iBrYkUJkaq9KqnVRJrIdr8Mkan9nlJaJhWR0pooIloUU0SUEGlDJgnJpGSUjTUZ0oaUpVCRqjVFlpIoDjtL1SZN9zOsJU2kiLKnp6b6oesVa6okOrW1C6xJrbFkTFohSolUFFXK5dASaaKOMFVElZjC0Oqup6TWqOpTUkPZwDUZk5ZIlciWyJRJxb8/4+wxQ1decejqA5rHjhi5ccMKG2+331nzE6pQNlFWmZhIGWOIiCxFoSJLRMYmFZt2EIVEaXVQmqyhMK7OXaRjS6mllMioRJMmMhQRtWlKiIgM2ZhMTDolbUsllRDF1PVcIlJWlcnGpFOKk2z2tCKtSVtKLZVjKsU2WztDmihN0gqRWWrxtv8cfBMKTZs2bc011xw/fvxRRx2llCKiCRMmrL322ltttdXAgQPfffddY8ydd945bty40aNHb7jBRtk8nnfOb/r3HbDdNtuvMGTYL37xC0vGklFRSNpQpCi1qhJZophoQZp0EC0g20G0IE1jogVx8mF7x1yiL4m+JDuT6Eur/vbCCyuMHz9hnfUnrjMpLaWk6aRfntiv34Dtd9ml/9DBZ/36zDAsZ6Mol8vZ5tGGiMgYY3RKRpNV2StNIputrrLZ9u3e7t3bvIY82UvHpCOyJlK6ZCgiKlmqWGPJkFWkE0qibHWtpTCp7nhldJTEOlVkiawhrbJ17kahGqoY2429qTJxmiijq6OwJpu9RMUZjSBSWoVEaZqUiRSRSVTaE/GysVttdKrIGrLUWUmT2hPLJtaUUtRKupRG84hKesG8KePWGD1q/NAV1hw5cuqgoVP7rbTFbX9/v5MopCrKxWkl29JpqjO6UB2IScnGRGWTdmiVqLSbNGiiShInNtIUagqNjohMdldMFNUwhOIKhWWqlMkYIlJESe25kY7TpEKUppVOyqpo95i6zkr3qJNUl8OK1mlt+X5sWCYKvfDCC57nNTY2HnLIIdk148aNmzJlymabbTZs2LAMf2655ZYxY8asssoqm2yySUYNHvv744Vccddddltp1OjDDjncWlJGt7a3kDVVFIo1abKpiuJUEUVEIVF7GCptK6VwyuSNgsY+51xyaSdRB9Eia+95+qlhY1ddaexq41ddI2wLSdMZJ5wyoLn/Djvs1NCv35nnnUdEROaPf/xjluqXpmmcqFSZzs5OY6pYkcRlrSKyyui0o9SuyWii6rtVyqS2G3NUDxRSRClFIWkVdrZZMgmZThPFZGKbliqdRIaMoSQha8JyxVbZBaU1rDBKV0plsiaplLsRJZvwnpveqlQnhnSGMD1fhlJtE20TS8qSSlVG8hOjIyKlVBIloSZqK5XLcRKpNEriLi6qojKRybqUba3QhJZiSjsoaSPqICrd9qc/rTly1abGYX0GTVhp7FaN/ddffepesytUJgqJQmV7zAxVKlEXdzVKmyQ2cZkoJJsxRrKG4sRmHDXSoabYUmgpNKZCNrWpIqKEKCZTissZhyOtyCgyplIpaTKKTEhpRUWWFNnUJCFZQ0rbjBgRVcK4xpapoxJWwljbKtrEYdQ1vT8mfBMXuvTSSy+55BIiKpfLa6yxxvrrr7/ZZpuNGjXq9ddfD8PwgQce6Nev30orrbTxxhsrpTIa89WXM1YYMqypofmwQw7PxmOJjDE6VTZOSRFVEtJkooQsxWnSWS6FcUSWOlpaN1l/ypS11h03euzuu+1licqJfvDRJ1YeP361NdZeZ52JZChuK59/+jljR4zeduvtVhg24szzzmsplZIkWXPCGq50fnncL1paWrqGkwkexqge7MVEUcWSsaSUScO4ZKp8KHuZ3q+MipuqjEVG2yQ0lZiSmJKEEkumSo8TRdYQKUOJJaWJEmMtkTLaalPlQkZXW6uRyRoKmVRHXX3QJk5VqHRkbGIp1SbWJu761VqdZAzBqjSpGJsQGVslBxRrlSFkJSprFRGlVoVpUom1STKmQSZWZaKQdIlUB5kOitu2nTxl7AorDxy06rDRG+X7rjds1R3O+N1tnUQdhhKiSOkaChmqsbhUkekWfJXN2qQ0TWNb465tpU5NaUphJW6xFBLFRIq00TpNKEkotVmbhmwlJmVJKSJlKY10RVOa2AyFNFmqIo8lIlJKWTKaTEoqIzFZx3SqyFjKZvtHh2WaE7ItKIRQSm244YZBECilZs+eff/9948fP/7WW2897bTTmpubGxsbH3/8cWstGXDOjTGLFi164403tt9huywEPdUJEfmen/2BrCy/NZqscHgWCR5H0YaTpgSO29DQMGPmrPsefGDwsOGvvfH6zw86iHOez+VeeuFFm6oLLrjgz9dcO3a1VT/89JMDfv6z08483QLrrL5GY33dp59+evnll++08zSllFIqCAIAnHNrtTHGcRwiiuPYDwIAUVwJ/MCSFYwbawTvcVLAYuEhBBBMYkQgUhMxyRhIwzpwQYIUSSlgAWkBq00ihAScRJMnhdFaCAFLjEy12Azr1TCAmnHBEoGxrpP+YMlyJtGjfJ9SCoDjOFlKTJahmSSKSyGFVNYILsIoLAQ5BkswNqsoD2as5BzWkBAEGGhVdelbevLBR488+gRFvnaKWhYS7XDJnn/hkaEDhNEIJASQJpHnedZara3jutaCczBCmlqHgTkAKfBqDRgiprR1HGGr/hyT/RBGcS7IgySYNVDKKo/7MJzVypqTVswDYJVNJXctIOB0h1TU1iROI891EqMcITmYNpqsdR2fDBjnIFhLXPzYZXyqZqgsKajnD4yxzCi3ySabJEnS0NDw+eefP/DAAyuvvPJDDz108sknE1Fzc/Njjz0GoKOj40+XXp5FMwwYMGD7HbZL4jQ7l8HzvLhaBJbBc0AExgiMM0YM2ug4DjfacEMv5wrpfDL9i8cffWzICkOZ4E899cQnn3w4afLkZ556mjOc/dvf/Pmaa9dcc82vvp65x557nX766ammieuu7XveggWLjjzy6Gk77xxWoiAIsszQrNYH41JymRWj8oN8ZhfL+XkAgnEAgn97VJXwBABHOhYGIAcSYJxx5mSVarMKMlYKmc2gJwUDspJGELVjvHr5K3r5Lhg46x2tzFm1VwxVbHMyIxehlk8DMHielz3R4QJAIcjVXLpCyOwjF9UzERjAQBbcqVbfMrjlptsgpLVCK0tg0vU23XyjIQOEAKSshkp7ngeAc+66sqf333W79reDrlwkBscRAHjtuqwTuaBYu5NzcI87DLx6WkN2meNkteUcLgGIzKpGPZoACPBcD7CeyM4q51KIrPQ+q1kwufgvhJl2O1WXFOSIaPXVV19rrbW22GKLfv36ffDBB0R0++23DxgwYMKECVtttVVraysRffTRR+PGjRu94piVRo0eMmjoyy++QobSWBllL7vkTyuuOPquu/5GluIwIUs6VZVSmYgyjhybaMyqo6dsPHnDzaYOGNR39pwZmV5YqnRaMnf97a9xmmhrTj311L59+++22x4DBgw69thfhJHShlZZbcK6kzYYM2aVc84+lyxlxkCylFk+uobR9coEHiLqIa1lI1/2q6cljYylVFNmZTK9LrBZmzFRnBkGe0G3FtRLULQ9Bcjs12/oyWKvHi0v+XV1jLWvbE3pIm1IKzIJ6eTNx54Y02fAuBXHjRyx+uDBaw0YukFx8EaPvbqgam+s6Ty1bndPYK+fzFIe3KM/S8wzUU3P7DF7uuspKVFMlFZv6W19yRq0pCyllmJLsa3qq6ZXZ350WCYKpWl61VVXeZ632WabjRkz5oUXXoii6P33329sbBw7duymm25qrU2SZNasWWusscZ666233TbbbzB56qYbbzZk0NC33nibDE3/4qsB/QauP3FSXaH++uv/QkSt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ZVHn8b88ebfdf/rym2+lpHwTvvPSi8ced9rsTmgJcAUPlYULyyUm/cw4nZqwveCIF998a/1Ntrr++luiSmqVLvqF++968MzTfq8FiFvmMMa5KqstNtn24Yce7dunX7kUtbR2XnXVNWuuOSmsJJw7NWIlCKzbokQWNpr32SevfjJv0GqTd5i2vdaQBF8iThUYg2AgA9cnggv4AHQC2KijtNN200449eyX3nynqV9/0qbc0nbUoYcfedwpmVldq1g0NwcQre3R8aecu9/PD37/ow9bW1riUuXrr6YfdvBhMxYurKQarpvzvbCzpFJbTkyhsa8fFNIY4CGSjk9e/WCD9be46ea7O8txY2NdqWP+S88/ufc+e93yt7dCBUoswCBlW1t7GKV7/vSok08+pWVBSzGfq+4MVkWYH9bw/S08LUMkY0wURUKIjBtss802d9xxx0cffZTVK+3s7CSiOI5RK+CYpuncuXOff/75QYMG/frXv957731c1zn44IN33HFHpdQbb7xx8EGHgDBmzJgbbrhh5syZWThwY2NjZrTI2A6A7DMRRVH08ssv77zzzpdddpnrOWmiMmkwiqKsn0scg7TsAVkHJA1Ht2ppAIskVkER2oQAjj/2xHfe+GjNNdd/+PFHvpr5zj8/euGBR2+auvnajzz+xIN/f9IYgGLw5LJLL/563qKzfvvbF156eNG892Yv+Oduu20nyLnh+ls1AEYecr5TcBznk88+mz277fwL/jDr64/OOPUXgMkFhTQy7W3he+99cNMtt07/evbn06fffN2Vw/v1mz2v9Oxr0ysAhEGlvV8h39Q8rDMCASBFKikUCg898fSwVcY/8NCjn3/yxqcffvCrY45ileTZR59ojaAEyCbgYsONtkyNnDRp0v0P3Ddrzkeff/7JDTf8ua6xrlwOk1jZqtWCW7Cs4goAWAvS77/9TpssNo9bL59DvUQdA9IK95yU+Yn2wHNRGlmmRQqpARYg5L8+4dTPP/xkyhY7/uOd915956WPv3j93juu2GjKWrfcdc/Vt96rtJYQMDIuaaHNSy+/dsiJv3n2/RnTFy765O2X1xraoNvmXv+3v4du0Ti5B556/LOXHhvomU223enl9+574qFL+9chDucSkgMPPrStlB5z2lmv/vP99//50lcfPnPXlSeh/Z9nnXv6R7ON9Tk4UInq6hpa28sz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" alt="Al Bayan"/>
+  </a>
+  <ul class="nlinks">
+    <li><a href="#" onclick="goTo('home');return false;" class="nl" data-p="home">Home</a></li>
+    <li class="dropdown">
+      <a href="#" onclick="goTo('about');return false;" class="nl" data-p="about">Our School ▾</a>
+      <div class="drop-menu">
+        <a href="#" onclick="goTo('about');return false;">About Al Bayan</a>
+        <a href="#" onclick="goTo('about');return false;">Our Mission</a>
+        <a href="#" onclick="goTo('academics');return false;">Academic Philosophy</a>
+      </div>
+    </li>
+    <li class="dropdown">
+      <a href="#" onclick="goTo('programs');return false;" class="nl" data-p="programs">Academics ▾</a>
+      <div class="drop-menu">
+        <a href="#" onclick="goTo('programs');return false;">All Programs</a>
+        <a href="#" onclick="goTo('hifz');return false;">Hifz Program</a>
+        <a href="#" onclick="goTo('prek');return false;">PreK 3 &amp; PreK 4</a>
+        <a href="#" onclick="goTo('kindergarten');return false;">Kindergarten</a>
+        <a href="#" onclick="goTo('elementary');return false;">Elementary K&ndash;5</a>
+        <a href="#" onclick="goTo('weekend');return false;">Weekend Islamic School</a>
+        <a href="#" onclick="goTo('summer');return false;">Summer School 2026</a>
+      </div>
+    </li>
+    <li><a href="#" onclick="goTo('admissions');return false;" class="nl" data-p="admissions">Admissions</a></li>
+    <li><a href="#" onclick="goTo('news');return false;" class="nl" data-p="news">News &amp; Events</a></li>
+    <li><a href="#" onclick="goTo('contact');return false;" class="nl" data-p="contact">Contact</a></li>
+  </ul>
+  <div class="nbtns">
+    <button class="ham" onclick="document.getElementById('mob').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="https://calendly.com/albayanlc_schooltour/schedule" target="_blank" class="nb nb-g" id="nb-tour" style="display:none">&#128197; Tour</a>
+    <a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="nb nb-s">&#127891; Enroll Now</a>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mob">
+  <a href="#" onclick="goTo('home');document.getElementById('mob').classList.remove('open');return false;">&#127968; Home</a>
+  <a href="#" onclick="goTo('about');document.getElementById('mob').classList.remove('open');return false;">&#127979; Our School</a>
+  <a href="#" onclick="goTo('programs');document.getElementById('mob').classList.remove('open');return false;">&#128218; All Programs</a>
+  <a href="#" onclick="goTo('hifz');document.getElementById('mob').classList.remove('open');return false;">&#128214; Hifz Program</a>
+  <a href="#" onclick="goTo('prek');document.getElementById('mob').classList.remove('open');return false;">&#127912; PreK 3 &amp; 4</a>
+  <a href="#" onclick="goTo('elementary');document.getElementById('mob').classList.remove('open');return false;">&#128300; Elementary</a>
+  <a href="#" onclick="goTo('weekend');document.getElementById('mob').classList.remove('open');return false;">&#128332; Weekend School</a>
+  <a href="#" onclick="goTo('summer');document.getElementById('mob').classList.remove('open');return false;">&#9728;&#65039; Summer 2026</a>
+  <a href="#" onclick="goTo('admissions');document.getElementById('mob').classList.remove('open');return false;">&#128203; Admissions</a>
+  <a href="#" onclick="goTo('news');document.getElementById('mob').classList.remove('open');return false;">&#128240; News &amp; Events</a>
+  <a href="#" onclick="goTo('contact');document.getElementById('mob').classList.remove('open');return false;">&#128222; Contact</a>
+  <a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank">&#10024; Enroll Now</a>
+</div>
+
+<!-- ══════════ PAGE: HOME ══════════ -->
+<div class="page active" id="page-home">
+
+<!-- HERO -->
+<section class="hero">
+  <!-- STATIC ISLAMIC SVG PATTERN — immediately visible -->
+  <div style="position:absolute;inset:0;z-index:0;opacity:0.22;pointer-events:none;overflow:hidden">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+      <defs>
+        <!-- Islamic 8-star tile pattern -->
+        <pattern id="isl8" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+          <!-- Octagon -->
+          <polygon points="35,10 85,10 110,35 110,85 85,110 35,110 10,85 10,35" fill="none" stroke="rgba(126,189,180,0.5)" stroke-width="0.8"/>
+          <!-- 8-pointed star -->
+          <polygon points="60,4 71,35 104,35 79,54 88,87 60,68 32,87 41,54 16,35 49,35" fill="none" stroke="rgba(126,189,180,0.6)" stroke-width="0.7"/>
+          <!-- Inner circle -->
+          <circle cx="60" cy="60" r="20" fill="none" stroke="rgba(126,189,180,0.35)" stroke-width="0.6"/>
+          <!-- Cross lines -->
+          <line x1="60" y1="4" x2="60" y2="116" stroke="rgba(126,189,180,0.15)" stroke-width="0.4"/>
+          <line x1="4" y1="60" x2="116" y2="60" stroke="rgba(126,189,180,0.15)" stroke-width="0.4"/>
+          <line x1="18" y1="18" x2="102" y2="102" stroke="rgba(126,189,180,0.12)" stroke-width="0.4"/>
+          <line x1="102" y1="18" x2="18" y2="102" stroke="rgba(126,189,180,0.12)" stroke-width="0.4"/>
+        </pattern>
+        <!-- Large central mandala (right-center) -->
+        <radialGradient id="isGlow" cx="65%" cy="50%">
+          <stop offset="0%" stop-color="rgba(23,93,82,0.6)"/>
+          <stop offset="40%" stop-color="rgba(14,58,46,0.3)"/>
+          <stop offset="100%" stop-color="rgba(4,8,18,0)"/>
+        </radialGradient>
+      </defs>
+      <!-- Tiled background pattern -->
+      <rect width="100%" height="100%" fill="url(#isl8)"/>
+      <!-- Gradient overlay for depth -->
+      <rect width="100%" height="100%" fill="url(#isGlow)"/>
+    </svg>
+    <!-- Central large mandala SVG -->
+    <svg style="position:absolute;right:4%;top:50%;transform:translateY(-50%);width:min(55vw,650px);height:min(55vw,650px);opacity:0.75" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="tg1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#7ebdb4" stop-opacity="0.9"/>
+          <stop offset="50%" stop-color="#2a9485" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#175d52" stop-opacity="0.5"/>
+        </linearGradient>
+        <linearGradient id="tg2" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#7ebdb4" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#175d52" stop-opacity="0.4"/>
+        </linearGradient>
+        <filter id="gf"><feGaussianBlur stdDeviation="2"/></filter>
+      </defs>
+      <!-- Outer glow ring -->
+      <circle cx="200" cy="200" r="195" class="ring-outer" fill="none" stroke="url(#tg1)" stroke-width="0.5" opacity="0.4"/>
+      <!-- Girih rings -->
+      <circle cx="200" cy="200" r="182" fill="none" stroke="url(#tg1)" stroke-width="1.2" opacity="0.6"/>
+      <circle cx="200" cy="200" r="158" fill="none" stroke="url(#tg2)" stroke-width="0.8" opacity="0.5" stroke-dasharray="8 6"/>
+      <circle cx="200" cy="200" r="130" fill="none" stroke="url(#tg1)" stroke-width="1.5" opacity="0.7"/>
+      <circle cx="200" cy="200" r="100" fill="none" stroke="url(#tg2)" stroke-width="0.8" opacity="0.5" stroke-dasharray="6 5"/>
+      <circle cx="200" cy="200" r="70" fill="none" stroke="url(#tg1)" stroke-width="1.2" opacity="0.65"/>
+      <circle cx="200" cy="200" r="44" fill="none" stroke="url(#tg2)" stroke-width="0.8" opacity="0.5"/>
+      <circle cx="200" cy="200" r="22" fill="none" stroke="url(#tg1)" stroke-width="1.0" opacity="0.6"/>
+      <!-- 24-point outer star -->
+      <polygon points="200,18 207,60 218,18 225,61 239,20 244,62 260,24 262,65 280,31 280,67 299,40 296,71 316,52 310,76 330,66 321,82 340,82 328,90 347,100 333,100 349,118 333,115 347,137 329,130 340,154 320,143 330,168 308,155 316,180 293,165 299,191 275,175 278,200 255,183 255,209 232,192 230,217 207,200 203,225 183,208 177,232 157,215 150,238 132,221 123,242 108,224 97,244 84,226 72,244 63,226 50,243 44,224 30,241 28,222 14,237 16,218 2,231 7,213 0,200 15,200 2,187 18,188 7,175 23,180 14,166 31,173 24,158 43,168 39,153 59,164 57,150 77,163 78,148 98,162 101,148 121,163 126,149 145,165 153,152 170,169 180,156 196,174 208,161 222,180 236,168 249,188 264,176 276,197 291,186 301,208 317,197 325,220 341,210 346,233 362,224 365,248 379,241 380,264 392,258 391,282 400,277 396,300 200,200 200,18" fill="none" stroke="url(#tg1)" stroke-width="0.6" opacity="0.3"/>
+      <!-- 12-point star -->
+      <polygon class="star12" points="200,42 211,92 247,58 233,108 280,90 252,130 300,130 261,158 305,172 258,181 295,205 248,203 275,232 228,220 243,253 200,232 157,253 172,220 125,232 152,203 105,205 142,181 95,172 139,158 100,130 148,130 120,90 167,108 153,58 189,92" fill="none" stroke="url(#tg1)" stroke-width="2.0" opacity="0.85"/>
+      <!-- Inner 8-point star -->
+      <polygon class="star8" points="200,100 215,153 270,138 235,178 270,218 215,203 200,256 185,203 130,218 165,178 130,138 185,153" fill="none" stroke="url(#tg2)" stroke-width="2.0" opacity="0.85"/>
+      <!-- Inner 6-point -->
+      <polygon points="200,120 226,168 278,168 252,212 226,256 200,208 174,256 148,212 122,168 174,168 148,120 200,120" fill="none" stroke="url(#tg1)" stroke-width="1.5" opacity="0.7"/>
+      <!-- Radiating lines -->
+      <line x1="200" y1="18" x2="200" y2="382" stroke="url(#tg1)" stroke-width="0.5" opacity="0.25"/>
+      <line x1="18" y1="200" x2="382" y2="200" stroke="url(#tg1)" stroke-width="0.5" opacity="0.25"/>
+      <line x1="54" y1="54" x2="346" y2="346" stroke="url(#tg1)" stroke-width="0.5" opacity="0.2"/>
+      <line x1="346" y1="54" x2="54" y2="346" stroke="url(#tg1)" stroke-width="0.5" opacity="0.2"/>
+      <line x1="18" y1="130" x2="382" y2="270" stroke="url(#tg1)" stroke-width="0.4" opacity="0.15"/>
+      <line x1="18" y1="270" x2="382" y2="130" stroke="url(#tg1)" stroke-width="0.4" opacity="0.15"/>
+      <line x1="130" y1="18" x2="270" y2="382" stroke="url(#tg1)" stroke-width="0.4" opacity="0.15"/>
+      <line x1="270" y1="18" x2="130" y2="382" stroke="url(#tg1)" stroke-width="0.4" opacity="0.15"/>
+      <!-- Center jewel -->
+      <circle cx="200" cy="200" r="12" fill="rgba(126,189,180,0.25)" stroke="url(#tg1)" stroke-width="2"/>
+      <circle cx="200" cy="200" r="6" fill="rgba(126,189,180,0.4)"/>
+    </svg>
+    <!-- Top-right corner smaller mandala -->
+    <svg style="position:absolute;right:1%;top:2%;width:min(12vw,140px);height:min(12vw,140px);opacity:0.4" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="56" fill="none" stroke="#7ebdb4" stroke-width="0.8" opacity="0.6"/>
+      <polygon points="60,8 70,36 98,36 76,52 84,80 60,64 36,80 44,52 22,36 50,36" fill="none" stroke="#7ebdb4" stroke-width="1.2" opacity="0.8"/>
+      <circle cx="60" cy="60" r="28" fill="none" stroke="#7ebdb4" stroke-width="0.7" opacity="0.5" stroke-dasharray="4 3"/>
+      <circle cx="60" cy="60" r="10" fill="none" stroke="#7ebdb4" stroke-width="1" opacity="0.6"/>
+    </svg>
+    <!-- Bottom-left smaller -->
+    <svg style="position:absolute;left:2%;bottom:5%;width:min(10vw,120px);height:min(10vw,120px);opacity:0.35" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="56" fill="none" stroke="#7ebdb4" stroke-width="0.8" opacity="0.6"/>
+      <polygon points="60,4 72,44 114,44 80,68 92,108 60,84 28,108 40,68 6,44 48,44" fill="none" stroke="#7ebdb4" stroke-width="1.2" opacity="0.8"/>
+    </svg>
+  </div>
+  <canvas id="ic" style="position:absolute;inset:0;z-index:1;pointer-events:none;opacity:1;mix-blend-mode:screen"></canvas>
+  <div class="slides" id="slides">
+    <div class="sl on" style="background-image:url('https://static.wixstatic.com/media/88997b_97c839c4b1e84d9585e5f922523de043~mv2.jpeg/v1/fill/w_1920,h_1080,al_c,q_90')"></div>
+    <div class="sl" style="background-image:url('https://static.wixstatic.com/media/88997b_91a01aac4957429e94462a2b7a24ccc1~mv2.jpeg/v1/fill/w_1920,h_1080,al_c,q_90')"></div>
+    <div class="sl" style="background-image:url('https://static.wixstatic.com/media/88997b_976ed83313e44b30a8f124d090a4253e~mv2.jpeg/v1/fill/w_1920,h_1080,al_c,q_90')"></div>
+    <div class="sl" style="background-image:url('https://static.wixstatic.com/media/88997b_00de17011b5d41e69c2a75a48d32d1f5~mv2.jpeg/v1/fill/w_1920,h_1080,al_c,q_90')"></div>
+    <div class="sl" style="background-image:url('https://static.wixstatic.com/media/88997b_22017318527e4f3d80ece5ef918455a4~mv2.jpeg/v1/fill/w_1920,h_1080,al_c,q_90')"></div>
+  </div>
+  <div class="ov1"></div><div class="ov2"></div><div class="ov3"></div>
+  <div class="orb ob1"></div><div class="orb ob2"></div>
+  <canvas id="hc"></canvas>
+  <div class="hcont">
+    <div class="hey"><div class="hel"></div><span>Norcross, Georgia &nbsp;&middot;&nbsp; Est. 2015</span></div>
+    <h1>
+      <div class="hl"><span>Where</span></div>
+      <div class="hl"><span><em>Faith</em> Meets</span></div>
+      <div class="hl"><span>Excellence</span></div>
+    </h1>
+    <p class="hsub">A leading Islamic school in Atlanta blending rigorous academics with Islamic values &mdash; empowering Muslim youth to become leaders of tomorrow.</p>
+    <div class="hbtns">
+      <a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="hb hb-p">&#127891; Begin Enrollment</a>
+      <a href="#" onclick="goTo('programs');return false;" class="hb hb-g">&#128218; Explore Programs</a>
+    </div>
+    <div class="hgps">
+      <div class="hgps-dot"></div>
+      <span>Al Bayan now participates in <strong>Georgia Promise Scholarship (GPS)</strong> &mdash; <a href="#" onclick="goTo('gps');return false;" style="color:var(--gold);cursor:none;text-decoration:underline">Learn More</a></span>
+    </div>
+  </div>
+  <div class="hscr"><span>Scroll</span><div class="scrl"></div></div>
+  <div class="hst">
+    <div><span class="stn">K&ndash;5</span><span class="stl">Grades</span></div>
+    <div><span class="stn">Hifz</span><span class="stl">Program</span></div>
+    <div><span class="stn">GPS&#10003;</span><span class="stl">Scholarship</span></div>
+  </div>
+  <div id="sdots">
+    <div class="sd on" onclick="heroGo(0)"></div>
+    <div class="sd" onclick="heroGo(1)"></div>
+    <div class="sd" onclick="heroGo(2)"></div>
+    <div class="sd" onclick="heroGo(3)"></div>
+    <div class="sd" onclick="heroGo(4)"></div>
+  </div>
+  <div id="sp"></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq"><div class="mtr">
+  <div class="mi">Hifz Program<span class="md"></span></div><div class="mi">Montessori PreK<span class="md"></span></div>
+  <div class="mi">Elementary K&ndash;5<span class="md"></span></div><div class="mi">Weekend Islamic School<span class="md"></span></div>
+  <div class="mi">Summer School 2026<span class="md"></span></div><div class="mi">Georgia Promise Scholarship<span class="md"></span></div>
+  <div class="mi">Hot Lunch Program<span class="md"></span></div><div class="mi">Extended Care<span class="md"></span></div>
+  <div class="mi">Hifz Program<span class="md"></span></div><div class="mi">Montessori PreK<span class="md"></span></div>
+  <div class="mi">Elementary K&ndash;5<span class="md"></span></div><div class="mi">Weekend Islamic School<span class="md"></span></div>
+  <div class="mi">Summer School 2026<span class="md"></span></div><div class="mi">Georgia Promise Scholarship<span class="md"></span></div>
+  <div class="mi">Hot Lunch Program<span class="md"></span></div><div class="mi">Extended Care<span class="md"></span></div>
+</div></div>
+
+<!-- ACCRED -->
+<div class="accred"><div class="ac-in">
+  <div class="ac-item"><div class="ac-ico"><lord-icon src="https://cdn.lordicon.com/tyvsmroc.json" trigger="loop" colors="primary:#175d52,secondary:#7ebdb4" style="width:22px;height:22px"></lord-icon></div>Cognia Accredited</div>
+  <div class="ac-item"><div class="ac-ico"><lord-icon src="https://cdn.lordicon.com/hocfhgcz.json" trigger="loop" colors="primary:#175d52,secondary:#7ebdb4" style="width:22px;height:22px"></lord-icon></div>Islamic Values</div>
+  <div class="ac-item"><div class="ac-ico"><lord-icon src="https://cdn.lordicon.com/bgebyztw.json" trigger="loop" colors="primary:#175d52,secondary:#7ebdb4" style="width:22px;height:22px"></lord-icon></div>Hifz Certified</div>
+  <div class="ac-item"><div class="ac-ico"><lord-icon src="https://cdn.lordicon.com/akmsapih.json" trigger="loop" colors="primary:#175d52,secondary:#7ebdb4" style="width:22px;height:22px"></lord-icon></div>Montessori PreK</div>
+  <div class="ac-item"><div class="ac-ico"><lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#175d52,secondary:#7ebdb4" style="width:22px;height:22px"></lord-icon></div>GISA Affiliated</div>
+  <div class="ac-item"><div class="ac-ico"><lord-icon src="https://cdn.lordicon.com/ooncttwe.json" trigger="loop" colors="primary:#175d52,secondary:#7ebdb4" style="width:22px;height:22px"></lord-icon></div>200+ Students</div>
+</div></div>
+
+<!-- ABOUT SNIPPET -->
+<section style="padding:7rem 5rem;background:var(--paper);position:relative;isolation:isolate">
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--t),var(--a),var(--t))"></div>
+  <div class="sec" style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center">
+    <div class="rvl">
+      <div style="position:relative">
+        <div style="width:100%;height:460px;border-radius:14px;overflow:hidden;box-shadow:30px 30px 80px rgba(0,0,0,.18)">
+          <img src="https://static.wixstatic.com/media/88997b_068581234f094b4ca31f4570c47c44c4~mv2.png/v1/fill/w_900,h_700,al_c,q_90" alt="Al Bayan Learning Center" style="width:100%;height:100%;object-fit:cover"/>
+        </div>
+        <div style="position:absolute;bottom:-1.5rem;right:-1.5rem;background:var(--t);border-radius:12px;padding:1.25rem 1.5rem;box-shadow:0 20px 50px rgba(23,93,82,.4);text-align:center">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:700;color:var(--a);line-height:1;display:block">200+</span>
+          <div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:3px">Students Enrolled</div>
+        </div>
+        <div style="position:absolute;top:1.5rem;left:-1.5rem;background:#fff;border-radius:12px;padding:1.25rem 1.5rem;box-shadow:0 12px 40px rgba(0,0,0,.12);text-align:center;min-width:130px">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--t);line-height:1;display:block">10+</span>
+          <div style="font-size:11px;color:var(--fog);margin-top:3px">Years of Excellence</div>
+        </div>
+      </div>
+    </div>
+    <div class="rvr">
+      <div class="eye">Our Story</div>
+      <h2 class="title">A School Built on <em>Vision</em> &amp; Values</h2>
+      <p class="body-t">We exist to serve our local community and create a stronger connection with Allah SWT for our youth. Al Bayan provides an environment for Muslims to strengthen their moral character, values and actions for the sake of Allah (SWT).</p>
+      <p class="body-t">Located in Norcross, GA, we offer comprehensive programs from PreK through 5th Grade, including our acclaimed Hifz Program, Weekend Islamic School, and Summer Camp 2026.</p>
+      <div style="border-left:3px solid var(--a);padding:.875rem 1.25rem;background:var(--al);border-radius:0 8px 8px 0;margin:1.5rem 0;font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--t)">"Seeking knowledge is an obligation upon every Muslim." — Prophet Muhammad &#65018;</div>
+      <a href="#" onclick="goTo('about');return false;" class="btnt">Learn Our Story &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section style="padding:7rem 5rem;background:linear-gradient(180deg,#0d1325 0%,var(--n) 100%);position:relative;isolation:isolate">
+  <div style="position:absolute;inset:0;opacity:.04;overflow:hidden;pointer-events:none">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="gp" x="0" y="0" width="90" height="90" patternUnits="userSpaceOnUse"><polygon points="45,2 88,24 88,68 45,88 2,68 2,24" fill="none" stroke="white" stroke-width=".6"/></pattern></defs><rect width="100%" height="100%" fill="url(#gp)"/></svg>
+  </div>
+  <div class="sec">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3.5rem" class="rv">
+      <div><div class="eye-w">Our Programs</div><h2 class="title-w">A Program for Every <em>Stage</em></h2></div>
+      <a href="#" onclick="goTo('programs');return false;" class="link-g">View All &rarr;</a>
+    </div>
+    <div class="pgrid">
+      <a href="#" onclick="goTo('hifz');return false;" class="pc rv" style="transition-delay:.05s">
+        <div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_9cb6fda83f394e30810ec0e8b513db14~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt="Hifz"/></div>
+        <div class="pc-body"><div class="pc-tag">All Ages</div><h3>Hifz Program</h3><p>Complete Qur'an memorization with certified ijazah teachers. Standalone or blended tracks available.</p><div class="pc-link">Explore &rarr;</div></div>
+      </a>
+      <a href="#" onclick="goTo('prek');return false;" class="pc rv" style="transition-delay:.1s">
+        <div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_0d77c15aef5c4668abc253c81bf95ea8~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt="PreK"/></div>
+        <div class="pc-body"><div class="pc-tag">Ages 3&ndash;4</div><h3>Montessori PreK</h3><p>Authentic Montessori environment blending Islamic values with early childhood excellence.</p><div class="pc-link">Explore &rarr;</div></div>
+      </a>
+      <a href="#" onclick="goTo('elementary');return false;" class="pc rv" style="transition-delay:.15s">
+        <div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_50e3efd4d60e4996a320e3241a4bd005~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt="Elementary"/></div>
+        <div class="pc-body"><div class="pc-tag">K &ndash; Grade 5</div><h3>Elementary School</h3><p>State-aligned academics with daily Qur'an, Arabic, and Islamic Studies integrated throughout.</p><div class="pc-link">Explore &rarr;</div></div>
+      </a>
+      <a href="#" onclick="goTo('weekend');return false;" class="pc rv" style="transition-delay:.2s">
+        <div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_8aa60061a1284f72a505a501ef888f1a~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt="Weekend"/></div>
+        <div class="pc-body"><div class="pc-tag">Ages 3&ndash;16</div><h3>Weekend Islamic School</h3><p>Saturday program: Qur'an, Arabic &amp; Islamic Studies for the Greater Atlanta Muslim community.</p><div class="pc-link">Explore &rarr;</div></div>
+      </a>
+      <a href="#" onclick="goTo('summer');return false;" class="pc rv" style="transition-delay:.25s">
+        <div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_5dadf9bb89f043a98c26ad1d47bd5ccc~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt="Summer"/></div>
+        <div class="pc-body"><div class="pc-tag">Ages 2.5+</div><h3>Summer School 2026</h3><p>June 8 &ndash; July 3. Faith, Fun &amp; Fantastic Adventures! Mon&ndash;Thu, 10am&ndash;2pm. No commitment.</p><div class="pc-link">Explore &rarr;</div></div>
+      </a>
+      <a href="#" onclick="goTo('programs');return false;" class="pc rv" style="transition-delay:.3s;background:linear-gradient(135deg,rgba(23,93,82,.2),rgba(14,28,52,.6));border-color:rgba(126,189,180,.2)">
+        <div class="pc-img" style="background:linear-gradient(135deg,var(--t),var(--t2));display:flex;align-items:center;justify-content:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;color:rgba(255,255,255,.18);letter-spacing:8px;text-align:center">المزيد</div>
+        </div>
+        <div class="pc-body"><div class="pc-tag">More Programs</div><h3>Extended Care &amp; More</h3><p>Toddlers Islamic Club, Before &amp; After School Care, Hot Lunch Program and more services.</p><div class="pc-link">View All &rarr;</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS BENTO -->
+<section style="padding:7rem 5rem;background:#090d1e;position:relative;isolation:isolate">
+  <canvas id="pc2" style="position:absolute;inset:0;z-index:0;pointer-events:none"></canvas>
+  <div class="sec" style="position:relative;z-index:1">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-bottom:4rem" class="rv">
+      <div><div class="eye-w">Why Al Bayan</div><h2 class="title-w">Built on Four <em>Pillars</em></h2></div>
+      <p class="body-w" style="max-width:300px">Every decision rooted in four unshakeable foundations that define who we are.</p>
+    </div>
+    <div class="pbento">
+      <div class="pil rv" style="transition-delay:.05s">
+        <div class="pbg" style="background:linear-gradient(135deg,#06192e,#0e3052,#175d52)"></div>
+        <div class="ptl"></div><div class="pglow"></div>
+        <div class="pman"><svg viewBox="0 0 200 200" fill="none" stroke="white" stroke-width=".8" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="95"/><circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="45"/><circle cx="100" cy="100" r="20"/><polygon points="100,5 116,66 180,66 128,104 147,165 100,127 53,165 72,104 20,66 84,66"/><line x1="100" y1="5" x2="100" y2="195"/><line x1="5" y1="100" x2="195" y2="100"/></svg></div>
+        <div class="pno">01</div>
+        <div class="piw"><div class="pr"></div><div class="pr2"></div><lord-icon src="https://cdn.lordicon.com/fhmmgkaq.json" trigger="loop" colors="primary:#ffffff,secondary:#7ebdb4" style="width:28px;height:28px;display:block"></lord-icon></div>
+        <div class="pbod"><h3>Academic Excellence</h3><p>State-certified faculty, Cognia-aligned curriculum, high expectations for every student.</p><a href="#" onclick="goTo('academics');return false;" class="plink">Learn More &rarr;</a></div>
+        <div class="pbl"></div>
+      </div>
+      <div class="pil rv" style="transition-delay:.1s">
+        <div class="pbg" style="background:linear-gradient(160deg,#07101e,#0f1e3a,#175d52)"></div>
+        <div class="ptl"></div><div class="pglow"></div>
+        <div class="pman" style="width:260px;height:260px;top:-50px;right:-50px"><svg viewBox="0 0 260 260" fill="none" stroke="white" stroke-width=".6" xmlns="http://www.w3.org/2000/svg"><circle cx="130" cy="130" r="124"/><circle cx="130" cy="130" r="92"/><circle cx="130" cy="130" r="62"/><circle cx="130" cy="130" r="33"/><circle cx="130" cy="130" r="12"/><polygon points="130,6 148,74 220,74 164,114 184,183 130,143 76,183 96,114 40,74 112,74"/><line x1="130" y1="6" x2="130" y2="254"/><line x1="6" y1="130" x2="254" y2="130"/><line x1="38" y1="38" x2="222" y2="222"/><line x1="222" y1="38" x2="38" y2="222"/></svg></div>
+        <div class="pno">02</div>
+        <div class="piw"><div class="pr"></div><div class="pr2"></div><lord-icon src="https://cdn.lordicon.com/bgebyztw.json" trigger="loop" colors="primary:#ffffff,secondary:#7ebdb4" style="width:28px;height:28px;display:block"></lord-icon></div>
+        <div class="pbod"><h3>Qur'anic Foundation</h3><p>Daily memorization, tajweed instruction, and Arabic immersion woven into every school day.</p>
+        <div class="pbuls">
+          <div class="pbul"><div class="pdot"></div>Expert Ijazah Holders</div>
+          <div class="pbul"><div class="pdot"></div>Hifz &amp; Blended Tracks</div>
+          <div class="pbul"><div class="pdot"></div>Tajweed Certification</div>
+          <div class="pbul"><div class="pdot"></div>50+ Huffaz Graduates</div>
+        </div>
+        <br><a href="#" onclick="goTo('hifz');return false;" class="plink">Hifz Program &rarr;</a></div>
+        <div class="pbl"></div>
+      </div>
+      <div class="pil rv" style="transition-delay:.15s">
+        <div class="pbg" style="background:linear-gradient(135deg,#090e1d,#0f1e3a,#1a4a5a)"></div>
+        <div class="ptl"></div><div class="pglow"></div>
+        <div class="pman"><svg viewBox="0 0 200 200" fill="none" stroke="white" stroke-width=".8" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="95"/><circle cx="100" cy="100" r="64"/><circle cx="100" cy="100" r="32"/><polygon points="100,5 116,66 180,66 128,104 147,165 100,127 53,165 72,104 20,66 84,66"/><line x1="100" y1="5" x2="100" y2="195"/><line x1="5" y1="100" x2="195" y2="100"/></svg></div>
+        <div class="pno">03</div>
+        <div class="piw"><div class="pr"></div><div class="pr2"></div><lord-icon src="https://cdn.lordicon.com/akmsapih.json" trigger="loop" colors="primary:#ffffff,secondary:#7ebdb4" style="width:28px;height:28px;display:block"></lord-icon></div>
+        <div class="pbod"><h3>Character First</h3><p>Islamic ethics, leadership development, and community service built into our culture from day one.</p><a href="#" onclick="goTo('about');return false;" class="plink">Our Values &rarr;</a></div>
+        <div class="pbl"></div>
+      </div>
+      <div class="pil rv" style="transition-delay:.2s">
+        <div class="pbg" style="background:linear-gradient(90deg,#050910,#0b1528,#111e3f)"></div>
+        <div class="ptl"></div><div class="pglow" style="width:400px;height:260px;top:50%;transform:translateY(-50%);right:0"></div>
+        <div class="pman" style="right:22%;top:50%;transform:translateY(-50%);width:200px;height:200px"><svg viewBox="0 0 200 200" fill="none" stroke="white" stroke-width=".7" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="95"/><circle cx="100" cy="100" r="68"/><circle cx="100" cy="100" r="40"/><circle cx="100" cy="100" r="17"/><polygon points="100,5 116,66 180,66 128,104 147,165 100,127 53,165 72,104 20,66 84,66"/><line x1="100" y1="5" x2="100" y2="195"/><line x1="5" y1="100" x2="195" y2="100"/></svg></div>
+        <div class="pno">04</div>
+        <div class="piw"><div class="pr"></div><div class="pr2"></div><lord-icon src="https://cdn.lordicon.com/szzmpgro.json" trigger="loop" colors="primary:#ffffff,secondary:#7ebdb4" style="width:28px;height:28px;display:block"></lord-icon></div>
+        <div class="pbod">
+          <div><h3>Community &amp; Family</h3><p>A warm ummah of parents, teachers and students working as one extended family.</p><a href="#" onclick="goTo('about');return false;" class="plink">Our Community &rarr;</a></div>
+          <div class="p4s"><span class="p4n">200<span style="color:var(--a)">+</span></span><span class="p4l">Families Enrolled</span></div>
+        </div>
+        <div class="pbl"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding:6rem 5rem;background:var(--n);position:relative;isolation:isolate">
+  <div style="position:absolute;width:580px;height:580px;border-radius:50%;background:radial-gradient(circle,rgba(23,93,82,.2),transparent 70%);left:-180px;top:50%;transform:translateY(-50%);pointer-events:none"></div>
+  <div class="sec"><div class="sgrid rv">
+    <div class="sblk"><lord-icon src="https://cdn.lordicon.com/ooncttwe.json" trigger="loop" colors="primary:#7ebdb4,secondary:#175d52" style="width:42px;height:42px"></lord-icon><span class="sc2"><span class="counter" data-t="200">0</span><span class="ssuf">+</span></span><span class="sdesc">Students</span><span class="ssub">Active enrollment</span></div>
+    <div class="sblk"><lord-icon src="https://cdn.lordicon.com/jjgkrkut.json" trigger="loop" colors="primary:#7ebdb4,secondary:#175d52" style="width:42px;height:42px"></lord-icon><span class="sc2"><span class="counter" data-t="10">0</span><span class="ssuf">+</span></span><span class="sdesc">Years</span><span class="ssub">Serving Atlanta</span></div>
+    <div class="sblk"><lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#7ebdb4,secondary:#175d52" style="width:42px;height:42px"></lord-icon><span class="sc2"><span class="counter" data-t="6">0</span></span><span class="sdesc">Programs</span><span class="ssub">For every stage</span></div>
+    <div class="sblk"><lord-icon src="https://cdn.lordicon.com/bgebyztw.json" trigger="loop" colors="primary:#7ebdb4,secondary:#175d52" style="width:42px;height:42px"></lord-icon><span class="sc2"><span class="counter" data-t="50">0</span><span class="ssuf">+</span></span><span class="sdesc">Huffaz</span><span class="ssub">Graduates</span></div>
+  </div></div>
+</section>
+
+<!-- GALLERY -->
+<section style="padding:7rem 5rem;background:#111527;isolation:isolate">
+  <div class="sec">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem" class="rv">
+      <div><div class="eye-w">Life at Al Bayan</div><h2 class="title-w">Our School, <em>Our Community</em></h2></div>
+      <a href="#" onclick="goTo('about');return false;" class="link-g">View More &rarr;</a>
+    </div>
+    <div class="gallg rv">
+      <div class="gi"><img src="https://static.wixstatic.com/media/88997b_97c839c4b1e84d9585e5f922523de043~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">Students Learning</div></div></div>
+      <div class="gi"><img src="https://static.wixstatic.com/media/88997b_91a01aac4957429e94462a2b7a24ccc1~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">Classroom Activities</div></div></div>
+      <div class="gi"><img src="https://static.wixstatic.com/media/88997b_976ed83313e44b30a8f124d090a4253e~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">School Community</div></div></div>
+      <div class="gi"><img src="https://static.wixstatic.com/media/88997b_0a35f7f383b84982a9af0a0df4a5f91c~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">School Events</div></div></div>
+      <div class="gi"><img src="https://static.wixstatic.com/media/88997b_386f718c8fdc43779bb5aea8f3bed003~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">Academic Programs</div></div></div>
+      <div class="gi"><img src="https://static.wixstatic.com/media/88997b_500caa02020e4546986907bd62bc81ca~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">Student Activities</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS PREVIEW -->
+<section style="padding:7rem 5rem;background:var(--n2);isolation:isolate">
+  <div class="sec">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3.5rem" class="rv">
+      <div><div class="eye-w">Latest Updates</div><h2 class="title-w">News &amp; <em>Events</em></h2></div>
+      <a href="#" onclick="goTo('news');return false;" class="link-g">All News &rarr;</a>
+    </div>
+    <div class="news-grid">
+      <a href="#" onclick="goTo('news');return false;" class="ncard rv" style="transition-delay:.05s"><div class="ncard-img"><img src="https://static.wixstatic.com/media/88997b_3172e5d03c104d6280427ca87412e4d9~mv2.jpeg/v1/fill/w_700,h_420,al_c,q_90" alt=""/><div class="nbadge">Admissions</div></div><div class="ncard-body"><div class="ndate">&#128197; May 2026</div><h3>Registrations Now Open for 2026&ndash;27</h3><p>Rolling admissions for Hifz, PreK, and Elementary. Apply today to secure your child's spot.</p><div class="ncard-link">Read More &rarr;</div></div></a>
+      <a href="#" onclick="goTo('summer');return false;" class="ncard rv" style="transition-delay:.1s"><div class="ncard-img"><img src="https://static.wixstatic.com/media/88997b_4be52d6d452543e4baf2513181c4b838~mv2.jpeg/v1/fill/w_700,h_420,al_c,q_90" alt=""/><div class="nbadge">Summer 2026</div></div><div class="ncard-body"><div class="ndate">&#128197; June&ndash;July 2026</div><h3>Summer School 2026: Faith, Fun &amp; Adventures!</h3><p>June 8&ndash;July 3. Ages 2.5+. Mon&ndash;Thu, 10am&ndash;2pm. Enroll now!</p><div class="ncard-link">Read More &rarr;</div></div></a>
+      <a href="#" onclick="goTo('gps');return false;" class="ncard rv" style="transition-delay:.15s"><div class="ncard-img"><img src="https://static.wixstatic.com/media/88997b_41bcdc2f2fb5496889c2dd2f2f294eae~mv2.jpeg/v1/fill/w_700,h_420,al_c,q_90" alt=""/><div class="nbadge">Scholarship</div></div><div class="ncard-body"><div class="ndate">&#128197; 2025&ndash;2026</div><h3>Georgia Promise Scholarship Now Available</h3><p>Al Bayan participates in GPS, offering eligible students state-funded tuition support.</p><div class="ncard-link">Learn More &rarr;</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- PARENT VOICES (second-to-last before CTA) -->
+<section style="padding:7rem 5rem;background:var(--paper);position:relative;isolation:isolate">
+  <div style="font-family:'Cormorant Garamond',serif;font-size:28rem;color:rgba(23,93,82,.04);position:absolute;top:-4rem;left:-1rem;line-height:1;pointer-events:none">"</div>
+  <div class="sec">
+    <div style="text-align:center;margin-bottom:4rem" class="rv">
+      <div class="eye eyec">Parent Voices</div>
+      <h2 class="title">Trusted by <em>Hundreds</em> of Families</h2>
+    </div>
+    <div class="tgrid">
+      <div class="tc rv" style="transition-delay:.05s"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><blockquote>"Al Bayan gave my daughter the confidence to be proud of her faith while excelling academically. She has memorized 5 juz and her teachers are extraordinary."</blockquote><div class="tau"><div class="tav">FA</div><div class="tmeta"><h5>Fatima Al-Rashidi</h5><span>Parent &bull; Grade 3 &amp; Hifz</span></div></div></div>
+      <div class="tc rv" style="transition-delay:.1s"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><blockquote>"The Montessori PreK is exceptional. My son walks in with a huge smile every morning. The teachers genuinely love each child — you can feel the barakah."</blockquote><div class="tau"><div class="tav">YM</div><div class="tmeta"><h5>Yusuf Mahmoud</h5><span>Parent &bull; Montessori PreK 3</span></div></div></div>
+      <div class="tc rv" style="transition-delay:.15s"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><blockquote>"We enrolled all three children at Al Bayan. The Islamic environment, academics, and community are everything we dreamed of. A true blessing for our family."</blockquote><div class="tau"><div class="tav">SK</div><div class="tmeta"><h5>Sara Khan</h5><span>Parent of 3 &bull; K, Grade 2 &amp; 5</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GPS BANNER -->
+<section style="padding:3rem 5rem;background:var(--n);isolation:isolate">
+  <div class="sec"><div class="gps-banner rv">
+    <div class="gps-icon">&#127891;</div>
+    <div class="gps-text"><h4>Georgia Promise Scholarship — Available at Al Bayan</h4><p>Eligible Georgia students may receive state-funded support toward tuition. Al Bayan is a proud GPS participating school. Don't let cost be a barrier to an exceptional Islamic education.</p></div>
+    <a href="#" onclick="goTo('gps');return false;" class="btna" style="flex-shrink:0;white-space:nowrap">Learn More &rarr;</a>
+  </div></div>
+</section>
+
+<!-- START YOUR JOURNEY / CTA -->
+<section class="cta-sec">
+  <div class="cg1"></div><div class="cg2"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.04;pointer-events:none">
+    <svg width="560" height="560" viewBox="0 0 560 560" fill="none" stroke="white" stroke-width=".6" xmlns="http://www.w3.org/2000/svg"><circle cx="280" cy="280" r="270"/><circle cx="280" cy="280" r="200"/><circle cx="280" cy="280" r="130"/><circle cx="280" cy="280" r="65"/><polygon points="280,10 305,115 415,115 325,180 358,285 280,220 202,285 235,180 145,115 255,115"/><line x1="280" y1="10" x2="280" y2="550"/><line x1="10" y1="280" x2="550" y2="280"/><line x1="70" y1="70" x2="490" y2="490"/><line x1="490" y1="70" x2="70" y2="490"/></svg>
+  </div>
+  <div class="cta-inner rv">
+    <div class="eye-w eyewc">Start Your Journey</div>
+    <h2 class="ctitle">Give Your Child the Gift of<br><em>Knowledge</em> &amp; Faith</h2>
+    <p class="csub">Join the Al Bayan family — where every child is seen, valued, and empowered to reach their highest potential in this life and the next.</p>
+    <div class="cbtns">
+      <a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="hb hb-p" style="padding:14px 30px;font-size:14px;border:1.5px solid var(--t);text-decoration:none;display:inline-flex;align-items:center;gap:8px;border-radius:8px;cursor:none;font-family:'Outfit',sans-serif;font-weight:600;background:linear-gradient(135deg,var(--t),var(--t3));color:#fff;transition:all .35s">&#127891; Apply for Enrollment</a>
+      <a href="https://calendly.com/albayanlc_schooltour/schedule" target="_blank" class="hb hb-g" style="padding:14px 30px;font-size:14px;border:1.5px solid rgba(255,255,255,.22);text-decoration:none;display:inline-flex;align-items:center;gap:8px;border-radius:8px;cursor:none;font-family:'Outfit',sans-serif;font-weight:600;background:rgba(255,255,255,.08);color:#fff;transition:all .35s">&#128197; Schedule Tour</a>
+      <a href="#" onclick="goTo('donations');return false;" class="btna" style="padding:14px 30px;font-size:14px">&#10084; Donate</a>
+    </div>
+  </div>
+</section>
+</div><!-- END HOME PAGE -->
+
+<!-- ══════════ PAGE: ABOUT ══════════ -->
+<div class="page" id="page-about">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_c3074a0534a442dfb13a8692aa94be2f~mv2.png/v1/fill/w_1920,h_900,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <span>Our School</span></div>
+  <h1>Our <em>School</em></h1><p>Empowering the Muslim ummah through faith, knowledge, and character since 2015 in Norcross, Georgia.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec" style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center">
+    <div class="rvl"><div class="eye">Our Mission</div><h2 class="title">Why <em>Al Bayan</em> Exists</h2>
+      <p class="body-t">We exist to serve our local community and allow various channels to create a stronger connection with Allah SWT for our youth. Our mission is to provide an adequate and appealing environment for Muslims to strengthen their moral character, values and actions for the sake of Allah (SWT).</p>
+      <p class="body-t">We believe every student has their own individual strength and embrace the philosophy that all students can learn — given the proper environment and academic program, teachers and students can strive for academic excellence.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:2rem">
+        <div style="background:var(--al);border-radius:12px;padding:1.5rem;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:700;color:var(--t)">200+</div><div style="font-size:12px;color:var(--fog);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px">Students</div></div>
+        <div style="background:var(--al);border-radius:12px;padding:1.5rem;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:700;color:var(--t)">10+</div><div style="font-size:12px;color:var(--fog);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px">Years</div></div>
+        <div style="background:var(--al);border-radius:12px;padding:1.5rem;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:700;color:var(--t)">6+</div><div style="font-size:12px;color:var(--fog);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px">Programs</div></div>
+        <div style="background:var(--al);border-radius:12px;padding:1.5rem;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:700;color:var(--t)">50+</div><div style="font-size:12px;color:var(--fog);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px">Huffaz</div></div>
+      </div>
+    </div>
+    <div class="rvr"><div style="height:520px;border-radius:14px;overflow:hidden;box-shadow:30px 30px 80px rgba(0,0,0,.18)"><img src="https://static.wixstatic.com/media/88997b_068581234f094b4ca31f4570c47c44c4~mv2.png/v1/fill/w_900,h_700,al_c,q_90" alt="Al Bayan" style="width:100%;height:100%;object-fit:cover"/></div></div>
+  </div>
+</section>
+<section style="padding:7rem 5rem;background:var(--n);isolation:isolate">
+  <div class="sec"><div style="text-align:center;margin-bottom:4rem" class="rv"><div class="eye-w eyewc">Programs We Offer</div><h2 class="title-w">Comprehensive <em>Islamic Education</em></h2></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem" class="rv">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:2rem;transition:border .3s" onmouseenter="this.style.borderColor='rgba(126,189,180,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)'"><div style="font-size:1.75rem;margin-bottom:.875rem">&#127773;</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#fff;margin-bottom:.5rem">Hifz Program</h3><p style="font-size:13.5px;color:rgba(255,255,255,.48);line-height:1.7">Structured memorization of the Holy Qur'an under certified ijazah teachers.</p><a href="#" onclick="goTo('hifz');return false;" style="color:var(--a);font-size:12px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;cursor:none;display:inline-block;margin-top:.875rem">Learn More &rarr;</a></div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:2rem;transition:border .3s" onmouseenter="this.style.borderColor='rgba(126,189,180,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)'"><div style="font-size:1.75rem;margin-bottom:.875rem">&#127807;</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#fff;margin-bottom:.5rem">PreK &ndash; Grade 5</h3><p style="font-size:13.5px;color:rgba(255,255,255,.48);line-height:1.7">Montessori-inspired curriculum blending academics, creativity, and Islamic values.</p><a href="#" onclick="goTo('programs');return false;" style="color:var(--a);font-size:12px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;cursor:none;display:inline-block;margin-top:.875rem">Explore &rarr;</a></div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:2rem;transition:border .3s" onmouseenter="this.style.borderColor='rgba(126,189,180,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)'"><div style="font-size:1.75rem;margin-bottom:.875rem">&#128332;</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#fff;margin-bottom:.5rem">Weekend Islamic School</h3><p style="font-size:13.5px;color:rgba(255,255,255,.48);line-height:1.7">Saturday school for ages 3–16. Qur'an, Arabic &amp; Islamic Studies. 10:30 AM–2:30 PM.</p><a href="#" onclick="goTo('weekend');return false;" style="color:var(--a);font-size:12px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;cursor:none;display:inline-block;margin-top:.875rem">Learn More &rarr;</a></div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:2rem;transition:border .3s" onmouseenter="this.style.borderColor='rgba(126,189,180,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)'"><div style="font-size:1.75rem;margin-bottom:.875rem">&#9728;&#65039;</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#fff;margin-bottom:.5rem">Summer School 2026</h3><p style="font-size:13.5px;color:rgba(255,255,255,.48);line-height:1.7">June 8–July 3. Faith, Fun &amp; Adventures for ages 2.5+ Mon–Thu.</p><a href="#" onclick="goTo('summer');return false;" style="color:var(--a);font-size:12px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;cursor:none;display:inline-block;margin-top:.875rem">Learn More &rarr;</a></div>
+    </div>
+  </div>
+</section>
+<section style="padding:7rem 5rem;background:#111527;isolation:isolate"><div class="sec"><div class="gallg rv">
+  <div class="gi"><img src="https://static.wixstatic.com/media/88997b_97c839c4b1e84d9585e5f922523de043~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">Student Life</div></div></div>
+  <div class="gi"><img src="https://static.wixstatic.com/media/88997b_91a01aac4957429e94462a2b7a24ccc1~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">Learning Together</div></div></div>
+  <div class="gi"><img src="https://static.wixstatic.com/media/88997b_976ed83313e44b30a8f124d090a4253e~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">Community</div></div></div>
+  <div class="gi"><img src="https://static.wixstatic.com/media/88997b_0a35f7f383b84982a9af0a0df4a5f91c~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">Activities</div></div></div>
+  <div class="gi"><img src="https://static.wixstatic.com/media/88997b_386f718c8fdc43779bb5aea8f3bed003~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">Events</div></div></div>
+  <div class="gi"><img src="https://static.wixstatic.com/media/88997b_500caa02020e4546986907bd62bc81ca~mv2.jpeg/v1/fill/w_600,h_450,al_c,q_90" alt=""/><div class="gi-ov"><div class="gi-lbl">Programs</div></div></div>
+</div></div></section>
+</div>
+
+<!-- ══════════ PAGE: ALL PROGRAMS ══════════ -->
+<div class="page" id="page-programs">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_91a01aac4957429e94462a2b7a24ccc1~mv2.jpeg/v1/fill/w_1920,h_1080,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <span>Programs</span></div>
+  <h1>Our <em>Programs</em></h1><p>From PreK to Grade 5, Hifz, Weekend School, and Summer Camp — a comprehensive Islamic education for every stage.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--n);isolation:isolate"><div class="sec"><div class="pgrid">
+  <a href="#" onclick="goTo('hifz');return false;" class="pc rv"><div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_9cb6fda83f394e30810ec0e8b513db14~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt=""/></div><div class="pc-body"><div class="pc-tag">All Ages</div><h3>Hifz Program</h3><p>Complete Qur'an memorization. Hifz-only and Hifz + Virtual School options available.</p><div class="pc-link">Explore &rarr;</div></div></a>
+  <a href="#" onclick="goTo('prek');return false;" class="pc rv" style="transition-delay:.05s"><div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_0d77c15aef5c4668abc253c81bf95ea8~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt=""/></div><div class="pc-body"><div class="pc-tag">Ages 3&ndash;4</div><h3>Montessori PreK 3 &amp; 4</h3><p>Authentic Montessori environment with full Islamic curriculum for our youngest learners.</p><div class="pc-link">Explore &rarr;</div></div></a>
+  <a href="#" onclick="goTo('kindergarten');return false;" class="pc rv" style="transition-delay:.1s"><div class="pc-img" style="background:linear-gradient(135deg,#0c1330,#1e7a6d);display:flex;align-items:center;justify-content:center"><div style="font-size:3rem">&#11088;</div></div><div class="pc-body"><div class="pc-tag">Age 5</div><h3>Kindergarten</h3><p>Full-time Montessori Kindergarten with dual academic and Islamic curriculum.</p><div class="pc-link">Explore &rarr;</div></div></a>
+  <a href="#" onclick="goTo('elementary');return false;" class="pc rv" style="transition-delay:.15s"><div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_50e3efd4d60e4996a320e3241a4bd005~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt=""/></div><div class="pc-body"><div class="pc-tag">K &ndash; Grade 5</div><h3>Elementary School</h3><p>State-aligned academics with daily Qur'an, Arabic and Islamic Studies.</p><div class="pc-link">Explore &rarr;</div></div></a>
+  <a href="#" onclick="goTo('weekend');return false;" class="pc rv" style="transition-delay:.2s"><div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_8aa60061a1284f72a505a501ef888f1a~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt=""/></div><div class="pc-body"><div class="pc-tag">Ages 3&ndash;16</div><h3>Weekend Islamic School</h3><p>Saturdays 10:30AM–2:30PM. Qur'an, Arabic &amp; Islamic Studies for all Atlanta families.</p><div class="pc-link">Explore &rarr;</div></div></a>
+  <a href="#" onclick="goTo('summer');return false;" class="pc rv" style="transition-delay:.25s"><div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_5dadf9bb89f043a98c26ad1d47bd5ccc~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt=""/></div><div class="pc-body"><div class="pc-tag">Ages 2.5+</div><h3>Summer School 2026</h3><p>June 8 – July 3. Faith, Fun &amp; Fantastic Adventures Mon–Thu, 10am–2pm.</p><div class="pc-link">Explore &rarr;</div></div></a>
+  <a href="#" class="pc rv" style="transition-delay:.3s"><div class="pc-img" style="background:linear-gradient(135deg,var(--n),#1b1b3f);display:flex;align-items:center;justify-content:center"><div style="font-size:3rem">&#128420;</div></div><div class="pc-body"><div class="pc-tag">Ages 3&ndash;4</div><h3>Toddlers Islamic Club</h3><p>Weekend program blending early childhood learning, Qur'an, Arabic, and Islamic values.</p><div class="pc-link">Learn More &rarr;</div></div></a>
+  <a href="#" class="pc rv" style="transition-delay:.35s"><div class="pc-img" style="background:linear-gradient(135deg,var(--n),#1a3040);display:flex;align-items:center;justify-content:center"><div style="font-size:3rem">&#9200;</div></div><div class="pc-body"><div class="pc-tag">Extended Care</div><h3>Before &amp; After School</h3><p>Safe, structured environment for students beyond regular school hours. No application fee.</p><div class="pc-link">Learn More &rarr;</div></div></a>
+  <a href="#" class="pc rv" style="transition-delay:.4s"><div class="pc-img" style="background:linear-gradient(135deg,var(--n),#1a2a10);display:flex;align-items:center;justify-content:center"><div style="font-size:3rem">&#129367;</div></div><div class="pc-body"><div class="pc-tag">Daily Service</div><h3>Hot Lunch Program</h3><p>Fresh, nutritious halal meals served daily. Order conveniently online each week.</p><div class="pc-link">Learn More &rarr;</div></div></a>
+</div></div></section>
+</div>
+
+<!-- ══════════ PAGE: HIFZ ══════════ -->
+<div class="page" id="page-hifz">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_9cb6fda83f394e30810ec0e8b513db14~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <a href="#" onclick="goTo('programs');return false;">Programs</a> / <span>Hifz</span></div>
+  <h1><em>Hifz</em> Program</h1><p>Dedicated to fostering a strong connection with the Holy Qur'an. Producing knowledgeable Huffaz who are protectors of the Book and successful in life.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec" style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start">
+    <div class="rvl"><div class="eye">About the Program</div><h2 class="title">Al Bayan <em>Hifz Program</em></h2>
+      <p class="body-t">The program is led by highly qualified and certified Qur'an teachers who hold an ijazah in the Holy Qur'an. Students are regularly assessed through Juz exams and their progress is closely monitored.</p>
+      <p class="body-t">The program is open to both new and continuing students. All applicants are assessed by a certified ijazah teacher to determine proficiency in tajweed and level of Qur'anic memorization. Part-Time Hifz option now available.</p>
+      <div style="display:flex;flex-direction:column;gap:.75rem;margin-top:2rem">
+        <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ash)"><span style="width:22px;height:22px;border-radius:50%;background:var(--al);color:var(--t);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">&#10003;</span>Small student-teacher ratio</div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ash)"><span style="width:22px;height:22px;border-radius:50%;background:var(--al);color:var(--t);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">&#10003;</span>Effective memorization &amp; retention techniques</div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ash)"><span style="width:22px;height:22px;border-radius:50%;background:var(--al);color:var(--t);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">&#10003;</span>Individual and group revision sessions</div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ash)"><span style="width:22px;height:22px;border-radius:50%;background:var(--al);color:var(--t);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">&#10003;</span>Ongoing academic education support</div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ash)"><span style="width:22px;height:22px;border-radius:50%;background:var(--al);color:var(--t);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">&#10003;</span>Al-Qaida Noorania, Tajweed &amp; Qira'at</div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ash)"><span style="width:22px;height:22px;border-radius:50%;background:var(--al);color:var(--t);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">&#10003;</span>Part-Time Hifz option available</div>
+      </div>
+    </div>
+    <div class="rvr">
+      <div style="height:360px;border-radius:14px;overflow:hidden;margin-bottom:1.5rem"><img src="https://static.wixstatic.com/media/88997b_9cb6fda83f394e30810ec0e8b513db14~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt="Hifz" style="width:100%;height:100%;object-fit:cover"/></div>
+      <div style="background:linear-gradient(135deg,#0c1330,#175d52);border-radius:14px;padding:2rem;color:#fff">
+        <div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--a);font-weight:600;margin-bottom:1rem">&#128197; Hifz Schedule</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+          <div style="background:rgba(255,255,255,.06);border-radius:9px;padding:1rem"><div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:.3rem">Hifz Mon&ndash;Thu</div><div style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600">8:30 &ndash; 11:00 AM</div></div>
+          <div style="background:rgba(255,255,255,.06);border-radius:9px;padding:1rem"><div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:.3rem">Hifz Friday</div><div style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600">8:30 &ndash; 10:00 AM</div></div>
+          <div style="background:rgba(255,255,255,.06);border-radius:9px;padding:1rem"><div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:.3rem">Academics Mon&ndash;Thu</div><div style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600">11:00 AM &ndash; 3:00 PM</div></div>
+          <div style="background:rgba(255,255,255,.06);border-radius:9px;padding:1rem"><div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:.3rem">Academics Friday</div><div style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600">10:00 AM &ndash; 12:30 PM</div></div>
+        </div>
+        <a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="btnt" style="display:block;text-align:center;margin-top:1.5rem">Apply to Hifz Program &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════ PAGE: PREK ══════════ -->
+<div class="page" id="page-prek">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_0d77c15aef5c4668abc253c81bf95ea8~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <a href="#" onclick="goTo('programs');return false;">Programs</a> / <span>PreK</span></div>
+  <h1>Montessori <em>PreK</em></h1><p>Nurturing the youngest learners with authentic Montessori education deeply rooted in Islamic values.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec"><div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+    <div style="background:#fff;border-radius:18px;padding:2.5rem;border:1px solid rgba(23,93,82,.1);box-shadow:0 4px 24px rgba(0,0,0,.05)" class="rv">
+      <div style="background:linear-gradient(135deg,var(--al),#7ebdb4);width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin-bottom:1.5rem">&#127912;</div>
+      <div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--a);font-weight:600;margin-bottom:.5rem">Age 3 &bull; Montessori</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--n);margin-bottom:1rem">Preschool PreK 3</h3>
+      <p style="font-size:14.5px;color:var(--ash);line-height:1.85;margin-bottom:1rem;font-weight:300">Designed to provide a strong foundation for 3-year-old students. Curriculum integrates Language Arts, Math, Science, Social Studies, Qur'an, Arabic, and Islamic Studies in half and full-time formats.</p>
+      <div style="background:var(--al);border-radius:8px;padding:1rem;border-left:3px solid var(--t);font-size:13px;color:var(--t)"><strong>Requirement:</strong> Age 3 by Sept 30, fully potty trained.</div>
+    </div>
+    <div style="background:#fff;border-radius:18px;padding:2.5rem;border:1px solid rgba(23,93,82,.1);box-shadow:0 4px 24px rgba(0,0,0,.05)" class="rv" style="transition-delay:.05s">
+      <div style="background:linear-gradient(135deg,var(--al),#2a9485);width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin-bottom:1.5rem">&#9999;&#65039;</div>
+      <div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--a);font-weight:600;margin-bottom:.5rem">Age 4 &bull; K-Readiness</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--n);margin-bottom:1rem">Preschool PreK 4</h3>
+      <p style="font-size:14.5px;color:var(--ash);line-height:1.85;margin-bottom:1rem;font-weight:300">Full-time education for 4-year-olds with a dual curriculum taught through Montessori approach. Focus on fine motor skills, social interaction, and fostering creativity toward kindergarten readiness.</p>
+      <div style="background:var(--al);border-radius:8px;padding:1rem;border-left:3px solid var(--t);font-size:13px;color:var(--t)"><strong>Requirement:</strong> Age 4 by Sept 30, fully potty trained.</div>
+    </div>
+  </div>
+  <div class="infobar rv" style="margin-top:2rem">
+    <div><span class="ib-lbl">School Hours</span><span class="ib-val">8:15 AM &ndash; 3:00 PM</span><span class="ib-sub">Mon &ndash; Fri</span></div>
+    <div class="ib-div"></div>
+    <div><span class="ib-lbl">Location</span><span class="ib-val">5555 Oakbrook Pkwy, Suite 150</span><span class="ib-sub">Norcross, GA 30093</span></div>
+    <div class="ib-div"></div>
+    <div><a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="btnt">Apply Now &rarr;</a></div>
+  </div></div>
+</section>
+</div>
+
+<!-- ══════════ PAGE: KINDERGARTEN ══════════ -->
+<div class="page" id="page-kindergarten">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_50e3efd4d60e4996a320e3241a4bd005~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <a href="#" onclick="goTo('programs');return false;">Programs</a> / <span>Kindergarten</span></div>
+  <h1><em>Kindergarten</em></h1><p>Full-time Montessori Kindergarten equipping 5-year-olds for bright futures through faith, success, and leadership.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec" style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center">
+    <div class="rvl"><div class="eye">About Kindergarten</div><h2 class="title">Al Bayan <em>Kindergarten</em></h2>
+      <p class="body-t">The Kindergarten Program is a full-time program for 5-year-olds. In a Montessori setting, students receive a comprehensive education encompassing Language Arts, Math, Science, Social Studies, Qur'an, Arabic, and Islamic Studies.</p>
+      <p class="body-t">Along with academic subjects, practical life skills are integrated into the curriculum. Our ultimate goal is to equip each child for a bright future by fostering faith, success, and leadership.</p>
+      <div style="background:var(--al);border-radius:12px;padding:1.25rem 1.5rem;border-left:3px solid var(--t);margin-top:1.5rem"><strong style="color:var(--t)">Admission:</strong><p style="font-size:13.5px;color:var(--ash);margin-top:.4rem">Children must be 5 years old by September 30th.</p></div>
+      <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="btnt">Apply Now &rarr;</a>
+        <a href="#" onclick="goTo('admissions');return false;" class="btna">Admissions Info</a>
+      </div>
+    </div>
+    <div class="rvr"><div style="height:460px;border-radius:14px;overflow:hidden"><img src="https://static.wixstatic.com/media/88997b_50e3efd4d60e4996a320e3241a4bd005~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt="Kindergarten" style="width:100%;height:100%;object-fit:cover"/></div></div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════ PAGE: ELEMENTARY ══════════ -->
+<div class="page" id="page-elementary">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_50e3efd4d60e4996a320e3241a4bd005~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <a href="#" onclick="goTo('programs');return false;">Programs</a> / <span>Elementary</span></div>
+  <h1>Elementary <em>School</em></h1><p>Academically enriching education blending Islamic Studies with state-aligned core subjects for Kindergarten through 5th Grade.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec" style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start">
+    <div class="rvl"><div class="eye">About Elementary</div><h2 class="title">Al Bayan <em>Elementary</em></h2>
+      <p class="body-t">The Elementary program provides a learning environment that is academically enriching, blending Islamic Studies with core subjects including ELA, Social Studies, Science, and Math, while meeting state curriculum standards.</p>
+      <p class="body-t">Our knowledgeable, experienced, and well-trained teachers provide an educational environment that fosters a love of learning and inspires a passion for knowledge.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:2rem">
+        <div style="background:var(--al);padding:1rem;border-radius:10px;font-size:13.5px;color:var(--t);font-weight:500">&#128214; English Language Arts</div>
+        <div style="background:var(--al);padding:1rem;border-radius:10px;font-size:13.5px;color:var(--t);font-weight:500">&#128290; Mathematics</div>
+        <div style="background:var(--al);padding:1rem;border-radius:10px;font-size:13.5px;color:var(--t);font-weight:500">&#129514; Science</div>
+        <div style="background:var(--al);padding:1rem;border-radius:10px;font-size:13.5px;color:var(--t);font-weight:500">&#127758; Social Studies</div>
+        <div style="background:linear-gradient(135deg,var(--t),var(--t2));padding:1rem;border-radius:10px;font-size:13.5px;color:#fff;font-weight:500">&#128301; Qur'an &amp; Arabic</div>
+        <div style="background:linear-gradient(135deg,var(--t),var(--t2));padding:1rem;border-radius:10px;font-size:13.5px;color:#fff;font-weight:500">&#9775; Islamic Studies</div>
+      </div>
+    </div>
+    <div class="rvr">
+      <div style="height:380px;border-radius:14px;overflow:hidden;margin-bottom:1.5rem"><img src="https://static.wixstatic.com/media/88997b_50e3efd4d60e4996a320e3241a4bd005~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt="Elementary" style="width:100%;height:100%;object-fit:cover"/></div>
+      <div class="infobar">
+        <div><span class="ib-lbl">Grades</span><span class="ib-val">K &ndash; 5th Grade</span></div>
+        <div class="ib-div"></div>
+        <div><span class="ib-lbl">Hours</span><span class="ib-val">8:15 AM &ndash; 3:00 PM</span></div>
+        <div class="ib-div"></div>
+        <div><a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="btnt">Apply Now</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════ PAGE: WEEKEND ══════════ -->
+<div class="page" id="page-weekend">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_8aa60061a1284f72a505a501ef888f1a~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <a href="#" onclick="goTo('programs');return false;">Programs</a> / <span>Weekend School</span></div>
+  <h1>Weekend <em>Islamic School</em></h1><p>Nurturing and structured Islamic learning environment for ages 3–16. Every Saturday in Norcross, GA.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec" style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start">
+    <div class="rvl"><div class="eye">Weekend Islamic School</div><h2 class="title">Qur'an, Arabic &amp; <em>Islamic Studies</em></h2>
+      <p class="body-t">The Weekend Islamic School at Al Bayan offers a nurturing and structured Islamic learning environment for children ages 3–16. Held every Saturday from 10:30 AM to 2:30 PM in Norcross, GA, our program welcomes both boys and girls from across the Greater Atlanta Muslim community.</p>
+      <p class="body-t">Our mission is to foster a deep love of Islam, the Qur'an, and the Arabic language in a welcoming and engaging setting that supports working families.</p>
+      <div style="background:linear-gradient(135deg,#0c1330,#175d52);border-radius:14px;padding:2rem;color:#fff;margin-top:2rem">
+        <div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--a);margin-bottom:1.25rem;font-weight:600">&#128197; Schedule &amp; Details</div>
+        <div style="display:flex;flex-direction:column;gap:.875rem;font-size:14px">
+          <div style="display:flex;justify-content:space-between"><span style="color:rgba(255,255,255,.55)">Day</span><span style="font-weight:600">Every Saturday</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:rgba(255,255,255,.55)">Time</span><span style="font-weight:600">10:30 AM &ndash; 2:30 PM</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:rgba(255,255,255,.55)">Ages</span><span style="font-weight:600">3 &ndash; 16 years</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:rgba(255,255,255,.55)">Location</span><span style="font-weight:600">Norcross, GA</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="rvr"><div style="height:420px;border-radius:14px;overflow:hidden;margin-bottom:1.5rem"><img src="https://static.wixstatic.com/media/88997b_8aa60061a1284f72a505a501ef888f1a~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt="Weekend School" style="width:100%;height:100%;object-fit:cover"/></div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="btnt">Apply for 2026&ndash;27 &rarr;</a>
+        <a href="#" onclick="goTo('contact');return false;" class="btna">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════ PAGE: SUMMER ══════════ -->
+<div class="page" id="page-summer">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_5dadf9bb89f043a98c26ad1d47bd5ccc~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <a href="#" onclick="goTo('programs');return false;">Programs</a> / <span>Summer School</span></div>
+  <h1>Summer School <em>2026</em></h1><p>Faith, Fun, and Fantastic Adventures! June 8 &ndash; July 3, 2026. Ages 2.5+.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec" style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start">
+    <div class="rvl"><div class="eye">Summer School 2026</div><h2 class="title">The Most Exciting <em>Summer</em> Yet!</h2>
+      <p class="body-t">Welcome to the most exciting and enriching summer experience yet! This year, our Summer School offers a perfect balance of fun, learning, and spiritual growth in an Islamic environment. No monthly commitment — flexibility built right in.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem">
+        <div style="background:var(--al);border-radius:12px;padding:1.25rem;text-align:center"><div style="font-size:1.5rem;margin-bottom:.5rem">&#128197;</div><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t);font-weight:600;margin-bottom:.3rem">Dates</div><div style="font-size:14px;color:var(--n);font-weight:600">June 8 &ndash; July 3</div></div>
+        <div style="background:var(--al);border-radius:12px;padding:1.25rem;text-align:center"><div style="font-size:1.5rem;margin-bottom:.5rem">&#128119;</div><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t);font-weight:600;margin-bottom:.3rem">Ages</div><div style="font-size:14px;color:var(--n);font-weight:600">2.5 years &amp; up</div></div>
+        <div style="background:var(--al);border-radius:12px;padding:1.25rem;text-align:center"><div style="font-size:1.5rem;margin-bottom:.5rem">&#128198;</div><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t);font-weight:600;margin-bottom:.3rem">Schedule</div><div style="font-size:14px;color:var(--n);font-weight:600">Mon &ndash; Thu</div></div>
+        <div style="background:var(--al);border-radius:12px;padding:1.25rem;text-align:center"><div style="font-size:1.5rem;margin-bottom:.5rem">&#9200;</div><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t);font-weight:600;margin-bottom:.3rem">Time</div><div style="font-size:14px;color:var(--n);font-weight:600">10:00 AM &ndash; 2:00 PM</div></div>
+      </div>
+      <a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="btnt" style="margin-top:2rem">Enroll in Summer School &rarr;</a>
+    </div>
+    <div class="rvr"><div style="height:480px;border-radius:14px;overflow:hidden"><img src="https://static.wixstatic.com/media/88997b_5dadf9bb89f043a98c26ad1d47bd5ccc~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt="Summer School 2026" style="width:100%;height:100%;object-fit:cover"/></div></div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════ PAGE: ADMISSIONS ══════════ -->
+<div class="page" id="page-admissions">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_00de17011b5d41e69c2a75a48d32d1f5~mv2.jpeg/v1/fill/w_1920,h_1080,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <span>Admissions</span></div>
+  <h1><em>Admissions</em></h1><p>Registrations are now open for 2026&ndash;27. Rolling admissions for all programs. Apply today.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec">
+    <div class="rv" style="max-width:780px;margin:0 auto 4rem;text-align:center">
+      <div class="eye eyec">Admissions 2026&ndash;27</div>
+      <h2 class="title">Begin Your <em>Application</em></h2>
+      <p class="body-t" style="text-align:center">Al Bayan is now accepting applications for its Hifz Program, Preschool (PreK-3 and PreK-4), and Elementary School (K–5th Gr) on a rolling basis. Children must be the appropriate age by September 30th.</p>
+    </div>
+    <div style="background:var(--n);border-radius:18px;padding:3rem;margin-bottom:2.5rem" class="rv">
+      <div class="eye-w eyewc" style="margin-bottom:2.5rem">How to Apply</div>
+      <div class="stgrid">
+        <div class="step"><div class="stn2 sna">1</div><h4>Schedule a Tour</h4><p>Visit our campus, meet our faculty, and experience the Al Bayan difference firsthand.</p></div>
+        <div class="step"><div class="stn2 sng">2</div><h4>Submit Application</h4><p>Complete the online application. A $50 application fee applies (refunded if not accepted).</p></div>
+        <div class="step"><div class="stn2 sng">3</div><h4>Enrollment</h4><p>Upon acceptance, pay the resource fee within 3 days to secure your child's spot.</p></div>
+      </div>
+      <div style="text-align:center;margin-top:2.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <a href="https://calendly.com/albayanlc_schooltour/schedule" target="_blank" class="btna" style="padding:13px 28px;font-size:14px">&#128197; Schedule a Tour</a>
+        <a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="btnt" style="padding:13px 28px;font-size:14px">&#127891; Start Application</a>
+      </div>
+    </div>
+    <!-- Accordions -->
+    <div class="dcard" onclick="this.classList.toggle('open')"><div class="dcard-h"><div class="dcard-l"><div class="dcard-ico" style="background:linear-gradient(135deg,#0c1330,var(--t))"><lord-icon src="https://cdn.lordicon.com/bgebyztw.json" trigger="loop" colors="primary:#7ebdb4,secondary:#fff" style="width:26px;height:26px;display:block"></lord-icon></div><div><div class="dcard-lbl">All Ages</div><h3>Hifz Program Requirements</h3></div></div><button class="dcard-tog">+</button></div>
+    <div class="dcard-b"><div class="dcard-i"><p>Open to new and continuing students. All applicants are assessed by a certified ijazah teacher. Students should be able to read the Qur'an independently, at academic proficiency level, and must demonstrate Islamic conduct standards.</p><p>$50 application fee required. Resource fee ($150) due within 3 days of acceptance. All fees due by June 1, 2026. Facility fee due by July 1, 2026.</p></div></div></div>
+    <div class="dcard" onclick="this.classList.toggle('open')"><div class="dcard-h"><div class="dcard-l"><div class="dcard-ico" style="background:linear-gradient(135deg,var(--al),#7ebdb4)"><lord-icon src="https://cdn.lordicon.com/jtiihjkr.json" trigger="loop" colors="primary:#175d52,secondary:#0c1330" style="width:26px;height:26px;display:block"></lord-icon></div><div><div class="dcard-lbl">Ages 3&ndash;4</div><h3>Preschool PreK 3 &amp; PreK 4</h3></div></div><button class="dcard-tog">+</button></div>
+    <div class="dcard-b"><div class="dcard-i"><p>Applicants must be the appropriate age by September 30th and must be fully potty trained. PreK 3 requires age 3; PreK 4 requires age 4. Half and full-time options available.</p></div></div></div>
+    <div class="dcard" onclick="this.classList.toggle('open')"><div class="dcard-h"><div class="dcard-l"><div class="dcard-ico" style="background:linear-gradient(135deg,#1b1b3f,var(--t))"><lord-icon src="https://cdn.lordicon.com/wvqjgkdy.json" trigger="loop" colors="primary:#7ebdb4,secondary:#fff" style="width:26px;height:26px;display:block"></lord-icon></div><div><div class="dcard-lbl">K &ndash; Grade 5</div><h3>Elementary School</h3></div></div><button class="dcard-tog">+</button></div>
+    <div class="dcard-b"><div class="dcard-i"><p>Elementary applicants must be age-appropriate for their grade level by September 30th. Kindergarten requires age 5. State-aligned academics with daily Qur'an, Arabic, and Islamic Studies.</p></div></div></div>
+    <!-- Fees -->
+    <div style="margin-top:3rem"><div class="eye" style="margin-bottom:2rem">Tuition &amp; Fees 2026&ndash;27</div>
+    <div class="fcards" style="margin-bottom:2rem">
+      <div class="fc"><div class="fstr"></div><div class="fbod"><div class="fcat">Preschool</div><h3>PreK 3 &amp; PreK 4</h3><p>Full-time Montessori. Ages 3&ndash;4.</p><div class="frows"><div class="fr"><span>Application Fee</span><span>$50</span></div><div class="fr"><span>Resource Fee</span><span>$150</span></div><div class="fr"><span>Facility Fee</span><span>Due Jul 1</span></div><div class="fr frh"><span>Monthly Tuition</span><span>Contact Us</span></div></div><a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="btnf">Apply Now &rarr;</a></div></div>
+      <div class="fc fcf" style="position:relative"><div class="fstr" style="background:linear-gradient(90deg,var(--a),var(--t3),var(--t))"></div><div class="fbdg">MOST ENROLLED</div><div class="fbod"><div class="fcat">Elementary</div><h3>Kindergarten &ndash; Grade 5</h3><p>Full academic + Islamic. State-aligned.</p><div class="frows"><div class="fr"><span>Application Fee</span><span>$50</span></div><div class="fr"><span>Resource Fee</span><span>$150</span></div><div class="fr frh"><span>Sibling Discount</span><span>Available &#10003;</span></div><div class="fr frh"><span>GPS Scholarship</span><span>Eligible &#10003;</span></div></div><a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="btnfs">Apply Now &rarr;</a></div></div>
+      <div class="fc"><div class="fstr" style="background:linear-gradient(90deg,#1b1b3f,var(--t),var(--a))"></div><div class="fbod"><div class="fcat">Hifz</div><h3>Qur'an Memorization</h3><p>Full or part-time with academic support.</p><div class="frows"><div class="fr"><span>Application Fee</span><span>$50</span></div><div class="fr"><span>Resource Fee (3 days)</span><span>$150</span></div><div class="fr"><span>Fees Due</span><span>Jun 1, 2026</span></div><div class="fr frh"><span>3% Annual Discount</span><span>Included &#10003;</span></div></div><a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank" class="btnf">Apply Now &rarr;</a></div></div>
+    </div>
+    <div class="gps-banner rv"><div class="gps-icon">&#127891;</div><div class="gps-text"><h4>Georgia Promise Scholarship Available</h4><p>Eligible students may receive state-funded support toward tuition. <a href="#" onclick="goTo('gps');return false;" style="color:var(--gold);cursor:none">Learn more &rarr;</a></p></div></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════ PAGE: NEWS & EVENTS ══════════ -->
+<div class="page" id="page-news">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_3172e5d03c104d6280427ca87412e4d9~mv2.jpeg/v1/fill/w_700,h_420,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <span>News &amp; Events</span></div>
+  <h1>News &amp; <em>Events</em></h1><p>Latest announcements, school events, and important community updates from Al Bayan.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--n2);isolation:isolate">
+  <div class="sec">
+    <div style="margin-bottom:4rem" class="rv"><div class="eye-w">Latest from Al Bayan</div><h2 class="title-w">School <em>News</em></h2></div>
+    <div class="news-grid">
+      <a href="#" class="ncard rv" style="transition-delay:.05s"><div class="ncard-img"><img src="https://static.wixstatic.com/media/88997b_3172e5d03c104d6280427ca87412e4d9~mv2.jpeg/v1/fill/w_700,h_420,al_c,q_90" alt=""/><div class="nbadge">Admissions</div></div><div class="ncard-body"><div class="ndate">&#128197; May 2026</div><h3>Registrations Open for 2026&ndash;27 Academic Year</h3><p>Rolling admissions for Hifz, PreK, and Elementary. Apply today to secure your child's spot.</p><div class="ncard-link">Read More &rarr;</div></div></a>
+      <a href="#" onclick="goTo('summer');return false;" class="ncard rv" style="transition-delay:.1s"><div class="ncard-img"><img src="https://static.wixstatic.com/media/88997b_4be52d6d452543e4baf2513181c4b838~mv2.jpeg/v1/fill/w_700,h_420,al_c,q_90" alt=""/><div class="nbadge">Summer 2026</div></div><div class="ncard-body"><div class="ndate">&#128197; June&ndash;July 2026</div><h3>Summer School 2026: Faith, Fun &amp; Adventures!</h3><p>June 8&ndash;July 3. Ages 2.5+. Mon&ndash;Thu 10am&ndash;2pm. Register now!</p><div class="ncard-link">Read More &rarr;</div></div></a>
+      <a href="#" onclick="goTo('gps');return false;" class="ncard rv" style="transition-delay:.15s"><div class="ncard-img"><img src="https://static.wixstatic.com/media/88997b_41bcdc2f2fb5496889c2dd2f2f294eae~mv2.jpeg/v1/fill/w_700,h_420,al_c,q_90" alt=""/><div class="nbadge">Scholarship</div></div><div class="ncard-body"><div class="ndate">&#128197; 2025&ndash;2026</div><h3>Georgia Promise Scholarship Now Available</h3><p>Al Bayan participates in GPS, offering eligible students state-funded tuition support.</p><div class="ncard-link">Learn More &rarr;</div></div></a>
+      <a href="#" class="ncard rv" style="transition-delay:.2s"><div class="ncard-img"><img src="https://static.wixstatic.com/media/88997b_d0b52afb353b445eaf6106a8bf44dc33~mv2.jpeg/v1/fill/w_700,h_420,al_c,q_90" alt=""/><div class="nbadge">Achievement</div></div><div class="ncard-body"><div class="ndate">&#128197; Spring 2026</div><h3>Al Bayan Students Excel at Regional Qur'an Competition</h3><p>Our Hifz students brought honor to Al Bayan at the Greater Atlanta Qur'an Recitation competition.</p><div class="ncard-link">Read More &rarr;</div></div></a>
+      <a href="#" class="ncard rv" style="transition-delay:.25s"><div class="ncard-img"><img src="https://static.wixstatic.com/media/88997b_be830972046545e588677a72e8898ea1~mv2.jpeg/v1/fill/w_700,h_420,al_c,q_90" alt=""/><div class="nbadge">Celebration</div></div><div class="ncard-body"><div class="ndate">&#128197; 2025</div><h3>Annual Hifz Graduation — A Day of Pride &amp; Barakah</h3><p>Families gathered to celebrate our newest Huffaz completing their Qur'anic memorization journey.</p><div class="ncard-link">Read More &rarr;</div></div></a>
+      <a href="#" onclick="goTo('weekend');return false;" class="ncard rv" style="transition-delay:.3s"><div class="ncard-img"><img src="https://static.wixstatic.com/media/88997b_9d0004f5dae641f8bf37209e41b90881~mv2.jpeg/v1/fill/w_700,h_420,al_c,q_90" alt=""/><div class="nbadge">Program Update</div></div><div class="ncard-body"><div class="ndate">&#128197; 2026&ndash;27</div><h3>Weekend Islamic School Expands with New Toddler Classes</h3><p>The Toddlers Islamic Club now extends to Saturday sessions, welcoming children ages 3&ndash;4.</p><div class="ncard-link">Read More &rarr;</div></div></a>
+    </div>
+    <!-- EVENTS TIMELINE -->
+    <div style="margin-top:6rem"><div class="eye-w rv">Upcoming Events</div><h2 class="title-w rv" style="margin-bottom:3rem">School <em>Calendar</em></h2>
+    <div style="display:flex;flex-direction:column;gap:1rem" class="rv">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.5rem 2rem;display:flex;align-items:center;gap:2rem;transition:border .3s" onmouseenter="this.style.borderColor='rgba(126,189,180,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)'">
+        <div style="text-align:center;min-width:70px"><div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--a);line-height:1">08</div><div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.4)">June</div></div>
+        <div style="width:1px;height:50px;background:rgba(255,255,255,.06)"></div>
+        <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--a);font-weight:600;margin-bottom:.3rem">Summer School</div><h4 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#fff;margin-bottom:.3rem">Summer School 2026 Begins</h4><p style="font-size:13px;color:rgba(255,255,255,.45)">Mon&ndash;Thu, 10:00 AM &ndash; 2:00 PM. Ages 2.5+</p></div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.5rem 2rem;display:flex;align-items:center;gap:2rem;transition:border .3s" onmouseenter="this.style.borderColor='rgba(126,189,180,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)'">
+        <div style="text-align:center;min-width:70px"><div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--a);line-height:1">01</div><div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.4)">July</div></div>
+        <div style="width:1px;height:50px;background:rgba(255,255,255,.06)"></div>
+        <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--a);font-weight:600;margin-bottom:.3rem">Admissions Deadline</div><h4 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#fff;margin-bottom:.3rem">Facility Fee Due — 2026&ndash;27</h4><p style="font-size:13px;color:rgba(255,255,255,.45)">Facility fee due July 1, 2026 for all enrolled students</p></div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.5rem 2rem;display:flex;align-items:center;gap:2rem;transition:border .3s" onmouseenter="this.style.borderColor='rgba(126,189,180,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)'">
+        <div style="text-align:center;min-width:70px"><div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--a);line-height:1">Sep</div><div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.4)">2026</div></div>
+        <div style="width:1px;height:50px;background:rgba(255,255,255,.06)"></div>
+        <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--a);font-weight:600;margin-bottom:.3rem">New School Year</div><h4 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#fff;margin-bottom:.3rem">2026&ndash;27 Academic Year Begins</h4><p style="font-size:13px;color:rgba(255,255,255,.45)">First day of school. Hours: 8:15 AM &ndash; 3:00 PM Mon&ndash;Fri</p></div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.5rem 2rem;display:flex;align-items:center;gap:2rem;transition:border .3s" onmouseenter="this.style.borderColor='rgba(126,189,180,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.07)'">
+        <div style="text-align:center;min-width:70px"><div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--a);line-height:1">Sat</div><div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.4)">Weekly</div></div>
+        <div style="width:1px;height:50px;background:rgba(255,255,255,.06)"></div>
+        <div><div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--a);font-weight:600;margin-bottom:.3rem">Weekend School</div><h4 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#fff;margin-bottom:.3rem">Weekend Islamic School — Every Saturday</h4><p style="font-size:13px;color:rgba(255,255,255,.45)">10:30 AM &ndash; 2:30 PM. Ages 3&ndash;16. Open to Greater Atlanta community</p></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════ PAGE: CONTACT ══════════ -->
+<div class="page" id="page-contact">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_22017318527e4f3d80ece5ef918455a4~mv2.jpeg/v1/fill/w_1920,h_1080,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <span>Contact</span></div>
+  <h1>Contact <em>Us</em></h1><p>We'd love to hear from you. Visit us, call us, or send a message — our team is here to help.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start">
+    <div class="rvl"><div class="eye">Contact Information</div><h2 class="title">Get in <em>Touch</em></h2>
+    <div style="display:flex;flex-direction:column;gap:1.25rem;margin-top:2rem">
+      <div style="background:#fff;border-radius:14px;padding:1.75rem;border:1px solid rgba(23,93,82,.1);display:flex;gap:1.25rem;align-items:flex-start">
+        <div style="width:46px;height:46px;border-radius:11px;background:var(--al);display:flex;align-items:center;justify-content:center;flex-shrink:0"><lord-icon src="https://cdn.lordicon.com/cnzhaqkh.json" trigger="loop" colors="primary:#175d52,secondary:#7ebdb4" style="width:26px;height:26px"></lord-icon></div>
+        <div><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--t);font-weight:600;margin-bottom:.4rem">Address</div><p style="font-size:15px;color:var(--n);font-weight:500">5555 Oakbrook Pkwy, Suite 150<br>Norcross, GA 30093</p></div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:1.75rem;border:1px solid rgba(23,93,82,.1);display:flex;gap:1.25rem;align-items:flex-start">
+        <div style="width:46px;height:46px;border-radius:11px;background:var(--al);display:flex;align-items:center;justify-content:center;flex-shrink:0"><lord-icon src="https://cdn.lordicon.com/jdnwyuyu.json" trigger="loop" colors="primary:#175d52,secondary:#7ebdb4" style="width:26px;height:26px"></lord-icon></div>
+        <div><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--t);font-weight:600;margin-bottom:.4rem">Phone</div><p style="font-size:15px;color:var(--n);font-weight:500">(404) 993-6660</p><p style="font-size:13px;color:var(--fog);margin-top:.25rem">Mon&ndash;Fri, 9:00 AM &ndash; 2:30 PM</p></div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:1.75rem;border:1px solid rgba(23,93,82,.1);display:flex;gap:1.25rem;align-items:flex-start">
+        <div style="width:46px;height:46px;border-radius:11px;background:var(--al);display:flex;align-items:center;justify-content:center;flex-shrink:0"><lord-icon src="https://cdn.lordicon.com/mdnkwdwt.json" trigger="loop" colors="primary:#175d52,secondary:#7ebdb4" style="width:26px;height:26px"></lord-icon></div>
+        <div><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--t);font-weight:600;margin-bottom:.4rem">Email</div><p style="font-size:15px;color:var(--n);font-weight:500">administration@albayanlc.com</p></div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:1.75rem;border:1px solid rgba(23,93,82,.1);display:flex;gap:1.25rem;align-items:flex-start">
+        <div style="width:46px;height:46px;border-radius:11px;background:var(--al);display:flex;align-items:center;justify-content:center;flex-shrink:0"><lord-icon src="https://cdn.lordicon.com/jjgkrkut.json" trigger="loop" colors="primary:#175d52,secondary:#7ebdb4" style="width:26px;height:26px"></lord-icon></div>
+        <div><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--t);font-weight:600;margin-bottom:.4rem">Office Hours</div><p style="font-size:15px;color:var(--n);font-weight:500">8:45 AM &ndash; 3:00 PM (School Year)</p><p style="font-size:13px;color:var(--fog);margin-top:.25rem">Summer: July 15+, 10am&ndash;1pm</p></div>
+      </div>
+    </div></div>
+    <div class="rvr">
+      <div style="background:var(--n);border-radius:18px;padding:2.5rem">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#fff;margin-bottom:2rem">Send Us a <em style="font-style:italic;color:var(--a)">Message</em></h3>
+        <div style="display:flex;flex-direction:column;gap:1.2rem">
+          <div><label style="font-size:11.5px;font-weight:600;color:rgba(255,255,255,.5);display:block;margin-bottom:.5rem">Full Name</label><input type="text" placeholder="Your full name" style="width:100%;padding:.875rem 1rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;font-size:14px;font-family:'Outfit',sans-serif;outline:none" onfocus="this.style.borderColor='rgba(126,189,180,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'"/></div>
+          <div><label style="font-size:11.5px;font-weight:600;color:rgba(255,255,255,.5);display:block;margin-bottom:.5rem">Email Address</label><input type="email" placeholder="your@email.com" style="width:100%;padding:.875rem 1rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;font-size:14px;font-family:'Outfit',sans-serif;outline:none" onfocus="this.style.borderColor='rgba(126,189,180,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'"/></div>
+          <div><label style="font-size:11.5px;font-weight:600;color:rgba(255,255,255,.5);display:block;margin-bottom:.5rem">Topic</label>
+          <select style="width:100%;padding:.875rem 1rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:rgba(255,255,255,.7);font-size:14px;font-family:'Outfit',sans-serif;outline:none">
+            <option style="background:#0c1330" value="">Select a topic</option>
+            <option style="background:#0c1330">Admissions Inquiry</option>
+            <option style="background:#0c1330">Hifz Program</option>
+            <option style="background:#0c1330">PreK Programs</option>
+            <option style="background:#0c1330">Elementary School</option>
+            <option style="background:#0c1330">Weekend Islamic School</option>
+            <option style="background:#0c1330">Summer School 2026</option>
+            <option style="background:#0c1330">GPS Scholarship</option>
+            <option style="background:#0c1330">Other</option>
+          </select></div>
+          <div><label style="font-size:11.5px;font-weight:600;color:rgba(255,255,255,.5);display:block;margin-bottom:.5rem">Message</label><textarea rows="5" placeholder="How can we help you?" style="width:100%;padding:.875rem 1rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;font-size:14px;font-family:'Outfit',sans-serif;outline:none;resize:vertical" onfocus="this.style.borderColor='rgba(126,189,180,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'"></textarea></div>
+          <button class="btnt" style="justify-content:center;padding:14px;font-size:14px" onclick="alert('Thank you! Our team will contact you shortly. BarakAllahu Feekum.')">Send Message &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════ PAGE: GPS ══════════ -->
+<div class="page" id="page-gps">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_9ab6a7b2f5d34c539f6e2ce1497e1f23~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <span>GPS Scholarship</span></div>
+  <h1><em>Georgia Promise</em> Scholarship</h1><p>Good news for Georgia families! Al Bayan is a participating school offering eligible students state-funded support.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec" style="max-width:900px;margin:0 auto">
+    <div class="rv" style="background:#fff;border-radius:18px;padding:3rem;border:1px solid rgba(23,93,82,.1);box-shadow:0 8px 40px rgba(0,0,0,.08)">
+      <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:2rem"><div style="font-size:3rem">&#127891;</div><div><div class="eye" style="margin-bottom:.3rem">State Scholarship Program</div><h2 class="title" style="margin-bottom:0">Georgia Promise Scholarship</h2></div></div>
+      <p class="body-t">Al Bayan Learning Center is a participating school in the Georgia Promise Scholarship Program (GPS) — offering eligible students new opportunities for private education with state-funded support.</p>
+      <p class="body-t">The Georgia Promise Scholarship provides eligible Georgia students with funds that can be used toward tuition and approved educational expenses at qualifying private schools like Al Bayan.</p>
+      <div style="background:var(--al);border-radius:12px;padding:1.75rem;margin:2rem 0;border-left:4px solid var(--t)">
+        <h4 style="color:var(--t);font-size:15px;font-weight:600;margin-bottom:.75rem">Who May Qualify?</h4>
+        <div style="display:flex;flex-direction:column;gap:.6rem">
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ash)"><span style="color:var(--t);font-weight:700">&#10003;</span>Georgia residents eligible to enroll in a public school</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ash)"><span style="color:var(--t);font-weight:700">&#10003;</span>Students with an Individualized Education Program (IEP)</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ash)"><span style="color:var(--t);font-weight:700">&#10003;</span>Students attending a qualifying private school like Al Bayan</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="https://www.albayanlc.com/ga-promise-scholorship" target="_blank" class="btnt">Apply for GPS &rarr;</a>
+        <a href="#" onclick="goTo('admissions');return false;" class="btna">Admissions Info</a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════ PAGE: ACADEMICS ══════════ -->
+<div class="page" id="page-academics">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_976ed83313e44b30a8f124d090a4253e~mv2.jpeg/v1/fill/w_1920,h_1080,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <span>Academics</span></div>
+  <h1>Our <em>Academics</em></h1><p>Every student has their own individual strength. With Allah's help, we sow the seeds of success through strong foundations in Islam and the Qur'an.</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec"><div class="pgrid">
+    <a href="#" onclick="goTo('hifz');return false;" class="pc rv"><div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_9cb6fda83f394e30810ec0e8b513db14~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt=""/></div><div class="pc-body"><div class="pc-tag">All Ages</div><h3>Hifz Program</h3><p>Designed to develop a powerful connection to the Holy Qur'an and produce competent Huffaz.</p><div class="pc-link">Learn More &rarr;</div></div></a>
+    <a href="#" onclick="goTo('prek');return false;" class="pc rv" style="transition-delay:.05s"><div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_0d77c15aef5c4668abc253c81bf95ea8~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt=""/></div><div class="pc-body"><div class="pc-tag">Ages 3&ndash;4</div><h3>Preschool PreK</h3><p>Montessori-inspired curriculum for spiritual, academic and personal foundations.</p><div class="pc-link">Learn More &rarr;</div></div></a>
+    <a href="#" onclick="goTo('kindergarten');return false;" class="pc rv" style="transition-delay:.1s"><div class="pc-img" style="background:linear-gradient(135deg,#0c1330,var(--t));display:flex;align-items:center;justify-content:center;font-size:3rem">&#11088;</div><div class="pc-body"><div class="pc-tag">Age 5</div><h3>Kindergarten</h3><p>Full Montessori Kindergarten preparing children for excellence in Deen and Dunya.</p><div class="pc-link">Learn More &rarr;</div></div></a>
+    <a href="#" onclick="goTo('elementary');return false;" class="pc rv" style="transition-delay:.15s"><div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_50e3efd4d60e4996a320e3241a4bd005~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt=""/></div><div class="pc-body"><div class="pc-tag">K &ndash; Grade 5</div><h3>Elementary School</h3><p>Islamic Studies blended with ELA, Social Studies, Science and Math meeting state standards.</p><div class="pc-link">Learn More &rarr;</div></div></a>
+    <a href="#" onclick="goTo('weekend');return false;" class="pc rv" style="transition-delay:.2s"><div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_8aa60061a1284f72a505a501ef888f1a~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt=""/></div><div class="pc-body"><div class="pc-tag">All Ages</div><h3>Weekend Islamic School</h3><p>Qur'an, Arabic &amp; Islamic Studies every Saturday for the Greater Atlanta Muslim community.</p><div class="pc-link">Learn More &rarr;</div></div></a>
+    <a href="#" onclick="goTo('summer');return false;" class="pc rv" style="transition-delay:.25s"><div class="pc-img"><img src="https://static.wixstatic.com/media/88997b_5dadf9bb89f043a98c26ad1d47bd5ccc~mv2.jpeg/v1/fill/w_800,h_600,al_c,q_90" alt=""/></div><div class="pc-body"><div class="pc-tag">Summer 2026</div><h3>Summer School</h3><p>June 8&ndash;July 3. Faith, Fun &amp; Fantastic Adventures for ages 2.5+!</p><div class="pc-link">Learn More &rarr;</div></div></a>
+  </div></div>
+</section>
+</div>
+
+<!-- ══════════ PAGE: DONATIONS ══════════ -->
+<div class="page" id="page-donations">
+<div class="page-hero"><div class="ph-bg" style="background-image:url('https://static.wixstatic.com/media/88997b_976ed83313e44b30a8f124d090a4253e~mv2.jpeg/v1/fill/w_1920,h_1080,al_c,q_90')"></div>
+  <div class="ph-inner"><div class="bc"><a href="#" onclick="goTo('home');return false;">Home</a> / <span>Donate</span></div>
+  <h1>Make a <em>Difference</em></h1><p>"Verily, Allah is generous, and He loves generosity." — Prophet Muhammad &#65018;</p></div>
+</div>
+<section style="padding:7rem 5rem;background:var(--paper);isolation:isolate">
+  <div class="sec" style="max-width:780px;margin:0 auto;text-align:center">
+    <div class="rv"><div class="eye eyec">Support Al Bayan</div><h2 class="title">Your Sadaqah, Their <em>Future</em></h2>
+      <p class="body-t" style="text-align:center">By making a donation, you support the daily operations of our organization and help create a nurturing and enriched educational environment. Your contribution assists needy families seeking Islamic education for their children.</p>
+      <p class="body-t" style="text-align:center">Funds are paid directly to student accounts at Al Bayan Learning Center, ensuring your sadaqah reaches those who need it most.</p>
+      <div style="margin-top:3rem;display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center">
+        <a href="https://www.albayanlc.com/donations" target="_blank" class="btnt" style="padding:16px 36px;font-size:15px">&#10084; Donate Now</a>
+        <a href="#" onclick="goTo('contact');return false;" class="btna" style="padding:16px 36px;font-size:15px">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="fg">
+    <div class="fbrand">
+      <strong>Al Bayan Learning Center</strong>
+      <p>Where faith meets excellence — nurturing the hearts, minds, and character of tomorrow's Muslim leaders in Norcross, Georgia.</p>
+      <div class="fcon">
+        <div><lord-icon src="https://cdn.lordicon.com/cnzhaqkh.json" trigger="loop" colors="primary:#7ebdb4,secondary:#175d52" style="width:15px;height:15px"></lord-icon>5555 Oakbrook Pkwy, Suite 150, Norcross, GA 30093</div>
+        <div><lord-icon src="https://cdn.lordicon.com/jdnwyuyu.json" trigger="loop" colors="primary:#7ebdb4,secondary:#175d52" style="width:15px;height:15px"></lord-icon>(404) 993-6660</div>
+        <div><lord-icon src="https://cdn.lordicon.com/mdnkwdwt.json" trigger="loop" colors="primary:#7ebdb4,secondary:#175d52" style="width:15px;height:15px"></lord-icon>administration@albayanlc.com</div>
+      </div>
+      <div class="fsocs">
+        <a href="https://www.facebook.com/AlBayanLearningCenter" target="_blank" class="fsoc"><lord-icon src="https://cdn.lordicon.com/lrpgttom.json" trigger="hover" colors="primary:#ffffff,secondary:#7ebdb4" style="width:18px;height:18px"></lord-icon></a>
+        <a href="https://www.instagram.com/albayanlc" target="_blank" class="fsoc"><lord-icon src="https://cdn.lordicon.com/qmdjzupq.json" trigger="hover" colors="primary:#ffffff,secondary:#7ebdb4" style="width:18px;height:18px"></lord-icon></a>
+        <a href="mailto:administration@albayanlc.com" class="fsoc"><lord-icon src="https://cdn.lordicon.com/mdnkwdwt.json" trigger="hover" colors="primary:#ffffff,secondary:#7ebdb4" style="width:18px;height:18px"></lord-icon></a>
+      </div>
+    </div>
+    <div class="fcol"><h4>Programs</h4>
+      <a href="#" onclick="goTo('hifz');return false;">Hifz Program</a>
+      <a href="#" onclick="goTo('prek');return false;">PreK 3 &amp; PreK 4</a>
+      <a href="#" onclick="goTo('kindergarten');return false;">Kindergarten</a>
+      <a href="#" onclick="goTo('elementary');return false;">Elementary K&ndash;5</a>
+      <a href="#" onclick="goTo('weekend');return false;">Weekend School</a>
+      <a href="#" onclick="goTo('summer');return false;">Summer School 2026</a>
+    </div>
+    <div class="fcol"><h4>School</h4>
+      <a href="#" onclick="goTo('about');return false;">About Al Bayan</a>
+      <a href="#" onclick="goTo('academics');return false;">Academics</a>
+      <a href="#" onclick="goTo('news');return false;">News &amp; Events</a>
+      <a href="#" onclick="goTo('gps');return false;">GA Promise Scholarship</a>
+      <a href="#" onclick="goTo('donations');return false;">Donate</a>
+    </div>
+    <div class="fcol"><h4>Admissions</h4>
+      <a href="https://albayanlc.dreamclass.io/pages/admissions-v2/form/GfaeqF" target="_blank">Apply Now</a>
+      <a href="https://calendly.com/albayanlc_schooltour/schedule" target="_blank">Schedule Tour</a>
+      <a href="#" onclick="goTo('admissions');return false;">Tuition &amp; Fees</a>
+      <a href="#" onclick="goTo('contact');return false;">Contact Us</a>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>&copy; 2026 Al Bayan Learning Center &nbsp;&bull;&nbsp; All Rights Reserved &nbsp;&bull;&nbsp; Norcross, GA</span>
+    <div style="display:flex;gap:2rem"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+  </div>
+</footer>
+
+<script>
+// ══ CURSOR ══
+const cur=document.getElementById('cur');
+const ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function animR(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR);})();
+
+// ══ LOADER ══
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('done'),2200));
+
+// ══ NAV SCROLL ══
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>80));
+
+// ══ PAGE ROUTING ══
+function goTo(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const t=document.getElementById('page-'+name)||document.getElementById('page-home');
+  t.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.nl').forEach(a=>a.classList.toggle('act',a.dataset.p===name));
+  document.getElementById('nb-tour').style.display='inline-flex';
+  document.getElementById('mob').classList.remove('open');
+  setTimeout(initReveal,120);
+}
+
+// ══ STUNNING ISLAMIC GEOMETRIC CANVAS ══
+(function(){
+  const c=document.getElementById('ic');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  function sz(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  sz();window.addEventListener('resize',sz);
+  let t=0;
+
+  // Create gorgeous gradient colors
+  function tealGrad(x,y,r){
+    const g=ctx.createRadialGradient(x,y,0,x,y,r);
+    g.addColorStop(0,'rgba(126,189,180,1)');
+    g.addColorStop(.5,'rgba(23,93,82,1)');
+    g.addColorStop(1,'rgba(23,93,82,0)');
+    return g;
+  }
+
+  // Draw a full Islamic 8-star rosette (interlaced)
+  function rosette8(cx,cy,R,rot,alpha,strokeW){
+    ctx.save();ctx.globalAlpha=alpha;ctx.lineWidth=strokeW;
+    // 8 interlaced squares → octagram
+    for(let k=0;k<2;k++){
+      ctx.beginPath();
+      for(let i=0;i<4;i++){
+        const a=rot+k*Math.PI/4+(i/4)*Math.PI*2;
+        const a2=a+Math.PI/4;
+        ctx.moveTo(cx+Math.cos(a)*R, cy+Math.sin(a)*R);
+        ctx.lineTo(cx+Math.cos(a2)*R*0.42, cy+Math.sin(a2)*R*0.42);
+        ctx.lineTo(cx+Math.cos(a+Math.PI/2)*R, cy+Math.sin(a+Math.PI/2)*R);
+      }
+      ctx.closePath();
+      const grad=ctx.createLinearGradient(cx-R,cy-R,cx+R,cy+R);
+      grad.addColorStop(0,'rgba(126,189,180,0.9)');
+      grad.addColorStop(.5,'rgba(42,148,133,0.7)');
+      grad.addColorStop(1,'rgba(23,93,82,0.5)');
+      ctx.strokeStyle=grad;ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // Draw 12-pointed star
+  function star12(cx,cy,R,inner,rot,alpha,sw){
+    ctx.save();ctx.globalAlpha=alpha;ctx.lineWidth=sw;
+    ctx.beginPath();
+    for(let i=0;i<24;i++){
+      const a=rot+(i/24)*Math.PI*2;
+      const r=i%2===0?R:inner;
+      const px=cx+Math.cos(a)*r,py=cy+Math.sin(a)*r;
+      i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    }
+    ctx.closePath();
+    const g2=ctx.createLinearGradient(cx-R,cy,cx+R,cy);
+    g2.addColorStop(0,'rgba(126,189,180,0.8)');
+    g2.addColorStop(1,'rgba(23,93,82,0.5)');
+    ctx.strokeStyle=g2;ctx.stroke();
+    ctx.restore();
+  }
+
+  // Draw concentric girih rings
+  function ring(cx,cy,r,segs,rot,alpha,sw,dash){
+    ctx.save();ctx.globalAlpha=alpha;ctx.lineWidth=sw;
+    if(dash)ctx.setLineDash(dash);
+    const g=ctx.createRadialGradient(cx,cy,r*.3,cx,cy,r);
+    g.addColorStop(0,'rgba(126,189,180,0.6)');
+    g.addColorStop(1,'rgba(23,93,82,0.15)');
+    ctx.strokeStyle=g;
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
+    // Petal divisions
+    for(let i=0;i<segs;i++){
+      const a=rot+(i/segs)*Math.PI*2;
+      ctx.beginPath();
+      ctx.moveTo(cx+Math.cos(a)*r*.65,cy+Math.sin(a)*r*.65);
+      ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  // Corner decorations — small rosettes
+  function cornerRosette(x,y,size,rot,alpha){
+    ctx.save();ctx.globalAlpha=alpha;ctx.lineWidth=0.8;
+    ctx.strokeStyle='rgba(126,189,180,0.7)';
+    // 6-petal flower
+    for(let i=0;i<6;i++){
+      const a=rot+(i/6)*Math.PI*2;
+      ctx.beginPath();
+      ctx.arc(x+Math.cos(a)*size*.5,y+Math.sin(a)*size*.5,size*.5,0,Math.PI*2);
+      ctx.stroke();
+    }
+    ctx.beginPath();ctx.arc(x,y,size*.5,0,Math.PI*2);ctx.stroke();
+    ctx.restore();
+  }
+
+  // Tiled small stars across background
+  function drawTile(cx,cy,r,rot,alpha){
+    ctx.save();ctx.globalAlpha=alpha;ctx.lineWidth=0.6;
+    ctx.strokeStyle='rgba(126,189,180,0.6)';
+    // Small 8-point
+    ctx.beginPath();
+    for(let i=0;i<16;i++){
+      const a=rot+(i/16)*Math.PI*2;
+      const rad=i%2===0?r:r*.42;
+      const px=cx+Math.cos(a)*rad,py=cy+Math.sin(a)*rad;
+      i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    }
+    ctx.closePath();ctx.stroke();
+    ctx.restore();
+  }
+
+  function frame(){
+    ctx.clearRect(0,0,c.width,c.height);
+    t+=.004;
+    const W=c.width,H=c.height;
+    const cx=W/2,cy=H/2;
+
+    // ── FULL-SCREEN BACKGROUND GLOW FILL ──
+    const bgGrad=ctx.createRadialGradient(cx*0.4,cy,0,cx,cy,Math.max(W,H)*.7);
+    bgGrad.addColorStop(0,'rgba(23,93,82,0.18)');
+    bgGrad.addColorStop(.4,'rgba(14,58,50,0.10)');
+    bgGrad.addColorStop(1,'rgba(4,8,18,0)');
+    ctx.fillStyle=bgGrad;
+    ctx.fillRect(0,0,W,H);
+
+    // ── LARGE CENTRAL ISLAMIC MANDALA ──
+    const R=Math.min(W,H)*.36;
+
+    // Outer ring with 16 division marks
+    ring(cx,cy,R*1.08,16,t*.3,.35,1.2,[6,8]);
+
+    // Main 12-pointed star (slowly rotating)
+    star12(cx,cy,R*.95,R*.42,-t*.25,.55,1.8);
+
+    // Inner 8-pointed rosette (counter-rotate)
+    rosette8(cx,cy,R*.72,t*.35,.65,2.0);
+
+    // Middle ring
+    ring(cx,cy,R*.72,8,t*.4,.4,1.0,[]);
+
+    // Second 12-star smaller
+    star12(cx,cy,R*.54,R*.25,t*.5,.50,1.4);
+
+    // Inner rosette
+    rosette8(cx,cy,R*.42,-t*.6,.60,1.5);
+
+    // Innermost ring
+    ring(cx,cy,R*.38,12,-t*.5,.45,0.9,[4,6]);
+
+    // Core 8-star
+    star12(cx,cy,R*.28,R*.12,-t*.8,.55,1.2);
+
+    // Center dot glow
+    const dotG=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.12);
+    dotG.addColorStop(0,'rgba(126,189,180,0.7)');
+    dotG.addColorStop(.5,'rgba(126,189,180,0.2)');
+    dotG.addColorStop(1,'rgba(126,189,180,0)');
+    ctx.fillStyle=dotG;ctx.beginPath();ctx.arc(cx,cy,R*.12,0,Math.PI*2);ctx.fill();
+
+    // ── CORNER ROSETTES ──
+    const cr=Math.min(W,H)*.09;
+    [[W*.08,H*.1],[W*.92,H*.1],[W*.08,H*.9],[W*.92,H*.9]].forEach(([x,y],i)=>{
+      cornerRosette(x,y,cr,t*.4*(i%2===0?1:-1),.45);
+    });
+
+    // ── EDGE SMALL STARS (tiled on right side, away from text) ──
+    const ts=Math.min(W,H)*.04;
+    for(let row=0;row<5;row++){
+      for(let col=0;col<3;col++){
+        const sx=W*.62+col*ts*3;
+        const sy=H*.15+row*ts*3;
+        if(sx<W*.98)drawTile(sx,sy,ts,t*.5+row*.3,.25);
+      }
+    }
+
+    // ── RADIATING LINES from center ──
+    for(let i=0;i<24;i++){
+      const a=t+(i/24)*Math.PI*2;
+      const len=R*1.15;
+      ctx.save();ctx.globalAlpha=.12;
+      ctx.strokeStyle='rgba(126,189,180,0.5)';ctx.lineWidth=0.5;
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*len,cy+Math.sin(a)*len);ctx.stroke();
+      ctx.restore();
+    }
+
+    // ── BISMILLAH GLOW TEXT center hint ──
+    ctx.save();
+    ctx.globalAlpha=Math.sin(t*.5)*.06+.08;
+    ctx.font=`${R*.22}px "Cormorant Garamond", serif`;
+    ctx.fillStyle='rgba(126,189,180,0.8)';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('﷽',cx,cy);
+    ctx.restore();
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ══ PARTICLES (hero overlay) ══
+(function(){
+  const c=document.getElementById('hc');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  function sz(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  sz();window.addEventListener('resize',sz);
+  const pts=Array.from({length:80},()=>({
+    x:Math.random()*c.width,y:Math.random()*c.height,
+    vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,
+    r:Math.random()*1.4+.3,o:Math.random()*.32+.06
+  }));
+  function frame(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach((p,i)=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>c.width)p.vx*=-1;
+      if(p.y<0||p.y>c.height)p.vy*=-1;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(126,189,180,${p.o})`;ctx.fill();
+      pts.forEach((q,j)=>{
+        if(i>=j)return;
+        const d=Math.hypot(p.x-q.x,p.y-q.y);
+        if(d<100){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=`rgba(126,189,180,${.05*(1-d/100)})`;ctx.lineWidth=.4;ctx.stroke();}
+      });
+    });
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ══ PILLARS BACKGROUND CANVAS ══
+(function(){
+  const c=document.getElementById('pc2');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  function sz(){const p=c.parentElement;c.width=p.offsetWidth;c.height=p.offsetHeight;}
+  sz();window.addEventListener('resize',sz);
+  const nodes=Array.from({length:50},()=>({
+    x:Math.random()*c.width,y:Math.random()*c.height,
+    vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,
+    r:Math.random()*1.4+.4,o:Math.random()*.15+.04,
+    rot:Math.random()*Math.PI*2,rv:(Math.random()-.5)*.007,
+    t:Math.floor(Math.random()*3)
+  }));
+  function frame(){
+    ctx.clearRect(0,0,c.width,c.height);
+    nodes.forEach((n,i)=>{
+      n.x+=n.vx;n.y+=n.vy;n.rot+=n.rv;
+      if(n.x<0||n.x>c.width)n.vx*=-1;
+      if(n.y<0||n.y>c.height)n.vy*=-1;
+      ctx.save();ctx.translate(n.x,n.y);ctx.rotate(n.rot);
+      ctx.globalAlpha=n.o;ctx.strokeStyle='rgba(126,189,180,1)';ctx.lineWidth=.5;
+      const s=n.r*4;
+      if(n.t===0){ctx.beginPath();ctx.arc(0,0,s,0,Math.PI*2);ctx.stroke();}
+      else if(n.t===1){ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(s*.87,s*.5);ctx.lineTo(-s*.87,s*.5);ctx.closePath();ctx.stroke();}
+      else{ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(s,0);ctx.lineTo(0,s);ctx.lineTo(-s,0);ctx.closePath();ctx.stroke();}
+      ctx.restore();
+      nodes.forEach((m,j)=>{
+        if(i>=j)return;
+        const d=Math.hypot(n.x-m.x,n.y-m.y);
+        if(d<85){ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.strokeStyle=`rgba(126,189,180,${.03*(1-d/85)})`;ctx.lineWidth=.35;ctx.stroke();}
+      });
+    });
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ══ HERO SLIDESHOW ══
+(function(){
+  const slides=document.querySelectorAll('.sl');
+  const dots=document.querySelectorAll('.sd');
+  let cur2=0,timer;
+  const total=slides.length;
+  function go(n){
+    slides[cur2].classList.remove('on');dots[cur2].classList.remove('on');
+    cur2=(n+total)%total;
+    slides[cur2].classList.add('on');dots[cur2].classList.add('on');
+    const sp=document.getElementById('sp');
+    if(sp){sp.style.animation='none';void sp.offsetWidth;sp.style.animation='sp 6s linear infinite';}
+  }
+  window.heroGo=go;
+  timer=setInterval(()=>go(cur2+1),6000);
+  // Mouse parallax on slides
+  document.addEventListener('mousemove',e=>{
+    const dx=(e.clientX/innerWidth-.5)*12,dy=(e.clientY/innerHeight-.5)*6;
+    slides.forEach(s=>{s.style.transform=`scale(1.04) translate(${dx}px,${dy}px)`;});
+  });
+})();
+
+// ══ SCROLL REVEAL + COUNTER ══
+function initReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        e.target.querySelectorAll('.counter').forEach(c=>{
+          const t=+c.dataset.t,step=t/60;let v=0;
+          const id=setInterval(()=>{v+=step;if(v>=t){v=t;clearInterval(id);}c.textContent=Math.floor(v);},25);
+        });
+      }
+    });
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>{if(!el.classList.contains('in'))obs.observe(el);});
+}
+initReveal();
+
+// ══ PILLAR MOUSE PARALLAX ══
+document.querySelectorAll('.pil').forEach(p=>{
+  p.addEventListener('mousemove',e=>{
+    const r=p.getBoundingClientRect();
+    const dx=(e.clientX-r.left-r.width/2)/r.width*12;
+    const dy=(e.clientY-r.top-r.height/2)/r.height*7;
+    const m=p.querySelector('.pman'),iw=p.querySelector('.piw');
+    if(m)m.style.transform=`translate(${dx}px,${dy}px) rotate(${dx*3}deg) scale(1.05)`;
+    if(iw)iw.style.transform=`translate(${dx*.5}px,${dy*.5}px)`;
+  });
+  p.addEventListener('mouseleave',()=>{
+    const m=p.querySelector('.pman'),iw=p.querySelector('.piw');
+    if(m)m.style.transform='';if(iw)iw.style.transform='';
+  });
+});
+</script>
+</body>
+</html>
